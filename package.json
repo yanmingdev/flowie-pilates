@@ -1,0 +1,40 @@
+{
+  "name": "flowie-studio",
+  "private": true,
+  "version": "1.2.0",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c green,magenta \"npm run dev -w backend\" \"npm run dev -w frontend\"",
+    "build": "npm run build -w backend && npm run build -w frontend",
+    "typecheck": "npm run typecheck -w backend && npm run typecheck -w frontend",
+    "lint": "eslint backend/src frontend/src",
+    "test": "npm run test -w backend",
+    "db:reset": "supabase db reset",
+    "db:migrate": "supabase migration up",
+    "db:demo": "node scripts/create-demo-users.mjs",
+    "test:db-smoke": "node scripts/check-migrations.mjs && node scripts/check-transactions.mjs",
+    "test:concurrency": "node scripts/test-concurrency.mjs",
+    "db:sql": "node scripts/build-sql-editor.mjs",
+    "test:postgrest": "node scripts/test-postgrest.mjs"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.16",
+    "@eslint/js": "^9.20.0",
+    "@types/node": "^22.13.4",
+    "concurrently": "^9.1.2",
+    "embedded-postgres": "^15.19.0-beta.19",
+    "eslint": "^9.20.0",
+    "globals": "^15.14.0",
+    "prettier": "^3.10.1",
+    "supabase": "^2.20.12",
+    "typescript": "~5.7.3",
+    "typescript-eslint": "^8.24.0",
+    "pg": "^8.23.1"
+  }
+}

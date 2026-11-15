@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 225 65" role="img" aria-label="flowie">
+  <path d="M7 42 C17 24,35 27,48 31 C58 35,70 29,76 17 C83 3,72 1,64 8 C51 20,48 45,33 54 C21 61,11 53,8 49" fill="none" stroke="#849A86" stroke-width="3.2" stroke-linecap="round"/>
+  <path d="M57 36 C66 36,72 33,79 32 C75 40,68 45,61 42 Z" fill="#E9CFC9"/>
+  <path d="M59 38 C64 39,69 37,75 35" fill="none" stroke="#fff" stroke-width="1"/>
+  <text x="84" y="47" fill="#514A45" font-family="Nunito,Arial,sans-serif" font-style="italic" font-weight="600" font-size="42" letter-spacing="-2">flowie</text>
+  <circle cx="214" cy="43" r="3.3" fill="#E9CFC9"/>
+</svg>
