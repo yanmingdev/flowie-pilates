@@ -8,13 +8,13 @@ export type Favorite = {
   image_url: string | null;
   description: string | null;
   difficulty: string;
-  duration_minutes: number;
+  default_duration_minutes: number;
   credit_cost: number;
   is_active: boolean;
   created_at: string;
 };
 export function useFavorites() {
-  const { studio, user, me, refreshMe } = useApp();
+  const { studio, user } = useApp();
   const qc = useQueryClient();
   const key = ['favorites', studio?.id, user?.id];
   const query = useQuery({
@@ -25,15 +25,6 @@ export function useFavorites() {
   const mutation = useMutation({
     mutationFn: async (v: { course_id: string; is_favorite: boolean }) => {
       if (!studio || !user) throw new Error('請先登入並選擇品牌。');
-      if (
-        v.is_favorite &&
-        !me?.memberships.some(
-          (m) => m.studio_id === studio.id && m.role === 'student' && m.is_active,
-        )
-      ) {
-        await post('/auth/join', { studio_id: studio.id });
-        refreshMe();
-      }
       return post('/favorites', { studio_id: studio.id, ...v });
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: key }),

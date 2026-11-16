@@ -26,6 +26,16 @@ const messages: Record<string, string> = {
   INVALID_INTERVAL: '請檢查日期和時間。',
   DUPLICATE_REQUEST: '請求已處理或識別碼重複。',
   INSUFFICIENT_CREDITS: '剩餘堂數不足。',
+  FEATURE_UNAVAILABLE_V1: '目前 V1 尚未支援此操作，請洽管理員。',
+  PROFILE_INCOMPLETE: '請先至「我的資料」填寫姓名，並確認帳號已啟用。',
+  PROFILE_NOT_FOUND: '找不到帳號資料，請聯絡管理員檢查 Supabase 設定。',
+  INVALID_IDEMPOTENCY_KEY: '操作識別碼不正確，請重新操作。',
+  SETTINGS_NOT_FOUND: '尚未設定品牌資料及取消規則。',
+  PACKAGE_UNAVAILABLE: '課程方案不存在或已停用。',
+  MISSING_BOOKING_DEBIT: '此預約缺少原始扣堂紀錄，請聯絡管理員確認。',
+  INVALID_ATTENDANCE: '出勤狀態不正確。',
+  INVALID_ADJUSTMENT: '請填寫有效的調整堂數及原因。',
+  MIGRATION_REQUIRED: '資料庫缺少 V1 增量函式；請依設定說明先審查並執行 05 SQL。',
 };
 export const errorHandler: ErrorRequestHandler = (err, req, res, _next) => {
   if (err instanceof ZodError) {
@@ -42,7 +52,9 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, _next) => {
   const raw = String(err?.message ?? 'INTERNAL_ERROR');
   const code =
     Object.keys(messages).find((k) => raw.includes(k)) ??
-    (err?.code === '23P01'
+    (err?.code === 'PGRST202'
+      ? 'MIGRATION_REQUIRED'
+      : err?.code === '23P01'
       ? 'SCHEDULE_CONFLICT'
       : err?.code === '23505'
         ? 'DUPLICATE'

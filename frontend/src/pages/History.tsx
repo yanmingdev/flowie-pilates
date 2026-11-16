@@ -33,7 +33,7 @@ export function History() {
         <h1>上課紀錄</h1>
         <p>每一步練習，都是屬於你的累積。</p>
       </div>
-      {query.isError && <ErrorNote error={query.error} />}
+      {query.isError && <ErrorNote error={query.error} retry={() => { void query.refetch(); }} />}
       {records.length ? (
         <div className="list-stack">
           {records.map((b) => (
@@ -54,7 +54,7 @@ export function History() {
                         string,
                         string
                       >
-                    )[b.attendance?.status || 'unconfirmed']
+                    )[b.attendance_status || 'unconfirmed']
                   }
                 </small>
               </div>
@@ -62,9 +62,8 @@ export function History() {
           ))}
         </div>
       ) : (
-        !query.isLoading && <Empty title="尚無上課紀錄" description="完成的課程會出現在這裡。" />
+        !query.isLoading && !query.isError && <Empty title="尚無上課紀錄" description="完成的課程會出現在這裡。" />
       )}
-      <p className="helper">顯示最近最多 200 筆預約中的歷史課程。</p>
     </main>
   );
 }

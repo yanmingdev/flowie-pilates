@@ -21,13 +21,9 @@ const links = [
   { to: '/account', label: '我的', Icon: UserRound },
 ];
 export function Layout() {
-  const { studio, studios, setStudioId, user, me, online } = useApp();
+  const { studio, user, me, online } = useApp();
   const settings = useStudioQuery<any[]>('site-settings');
-  const isStaff =
-    me?.is_super_admin ||
-    me?.memberships.some(
-      (m) => m.studio_id === studio?.id && m.is_active && ['admin', 'teacher'].includes(m.role),
-    );
+  const isStaff = !!me?.profile.is_active && (me.profile.is_admin || me.is_teacher);
   const {
     needRefresh: [needRefresh],
     updateServiceWorker,
@@ -55,19 +51,6 @@ export function Layout() {
             {isStaff && <NavLink to="/admin">管理後台</NavLink>}
           </nav>
           <div className="top-actions">
-            {studios.length > 1 && (
-              <select
-                aria-label="切換品牌"
-                value={studio?.id ?? ''}
-                onChange={(e) => setStudioId(e.target.value)}
-              >
-                {studios.map((s) => (
-                  <option key={s.id} value={s.id}>
-                    {s.name}
-                  </option>
-                ))}
-              </select>
-            )}
             <Link to="/announcements" className="top-notice" aria-label="查看最新消息">
               <Bell size={20} />
             </Link>
@@ -125,14 +108,10 @@ const adminLinks = [
   { to: '/admin/manage', label: '資料管理', Icon: Menu },
 ];
 export function AdminLayout() {
-  const { studio, me, user, authLoading } = useApp();
+  const { studio, me, user, authLoading, meLoading, meError, refreshMe } = useApp();
   const navigate = useNavigate();
-  const staff =
-    me?.is_super_admin ||
-    me?.memberships.some(
-      (m) => m.studio_id === studio?.id && m.is_active && ['admin', 'teacher'].includes(m.role),
-    );
-  if (authLoading || (user && !me))
+  const staff = !!me?.profile.is_active && (me.profile.is_admin || me.is_teacher);
+  if (authLoading || (user && meLoading))
     return (
       <div className="page">
         <div className="empty">載入中…</div>
@@ -149,6 +128,8 @@ export function AdminLayout() {
         </div>
       </div>
     );
+  if (user && meError)
+    return <div className="page"><div className="error-note" role="alert">無法讀取帳號權限，請檢查連線。 <button onClick={refreshMe}>重新載入</button></div></div>;
   if (!staff)
     return (
       <div className="page">

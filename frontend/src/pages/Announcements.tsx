@@ -15,7 +15,7 @@ export function Announcements() {
         <h1>最新消息</h1>
         <p>工作室的公告與提醒。</p>
       </div>
-      {query.isError && <ErrorNote error={query.error} />}
+      {query.isError && <ErrorNote error={query.error} retry={() => { void query.refetch(); }} />}
       {rows.length ? (
         <div className="announcement-list">
           {rows.map((a) => (
@@ -29,7 +29,7 @@ export function Announcements() {
           ))}
         </div>
       ) : (
-        !query.isLoading && <Empty title="目前沒有新消息" />
+        !query.isLoading && !query.isError && <Empty title="目前沒有新消息" />
       )}
     </main>
   );

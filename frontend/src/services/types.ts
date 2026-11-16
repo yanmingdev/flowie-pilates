@@ -35,9 +35,8 @@ export type Session = {
 };
 export type Me = {
   user: { id: string; email: string };
-  profile: { full_name: string; phone: string | null; birthday: string | null };
-  memberships: { studio_id: string; role: string; is_active: boolean }[];
-  is_super_admin: boolean;
+  profile: { id: string; display_name: string | null; is_admin: boolean; is_active: boolean };
+  is_teacher: boolean;
 };
 export const dateTime = (v: string) =>
   new Intl.DateTimeFormat('zh-TW', {

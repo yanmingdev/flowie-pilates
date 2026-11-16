@@ -7,34 +7,33 @@
     "backend"
   ],
   "engines": {
-    "node": ">=20.19"
+    "node": "^24.15.0"
   },
   "scripts": {
     "dev": "concurrently -k -n api,web -c green,magenta \"npm run dev -w backend\" \"npm run dev -w frontend\"",
     "build": "npm run build -w backend && npm run build -w frontend",
     "typecheck": "npm run typecheck -w backend && npm run typecheck -w frontend",
     "lint": "eslint backend/src frontend/src",
-    "test": "npm run test -w backend",
-    "db:reset": "supabase db reset",
-    "db:migrate": "supabase migration up",
-    "db:demo": "node scripts/create-demo-users.mjs",
-    "test:db-smoke": "node scripts/check-migrations.mjs && node scripts/check-transactions.mjs",
-    "test:concurrency": "node scripts/test-concurrency.mjs",
-    "db:sql": "node scripts/build-sql-editor.mjs",
-    "test:postgrest": "node scripts/test-postgrest.mjs"
+    "test": "npm run test -w backend && npm run test -w frontend && npm run test:db-smoke",
+    "test:db-smoke": "node scripts/test-v1-db.mjs",
+    "test:concurrency": "node scripts/test-v1-concurrency.mjs",
+    "test:postgrest": "node scripts/test-v1-http.mjs"
   },
   "devDependencies": {
     "@electric-sql/pglite": "^0.5.16",
     "@eslint/js": "^9.20.0",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/react": "^16.3.3",
     "@types/node": "^22.13.4",
     "concurrently": "^9.1.2",
     "embedded-postgres": "^15.19.0-beta.19",
     "eslint": "^9.20.0",
     "globals": "^15.14.0",
+    "jsdom": "^31.0.1",
+    "pg": "^8.23.1",
+    "playwright": "^1.65.1",
     "prettier": "^3.10.1",
-    "supabase": "^2.20.12",
     "typescript": "~5.7.3",
-    "typescript-eslint": "^8.24.0",
-    "pg": "^8.23.1"
+    "typescript-eslint": "^8.24.0"
   }
 }

@@ -4,13 +4,10 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { supabase } from '../services/supabase';
-import { post } from '../services/api';
-import { useApp } from '../services/context';
 import { ErrorNote } from '../components/Ui';
 const schema = z.object({
   email: z.string().email('請輸入有效的 Email'),
   password: z.string().min(8, '密碼至少 8 個字元'),
-  name: z.string().optional(),
 });
 type Values = z.infer<typeof schema>;
 export function AuthPage() {
@@ -19,24 +16,13 @@ export function AuthPage() {
   const [error, setError] = useState<unknown>();
   const [busy, setBusy] = useState(false);
   const navigate = useNavigate();
-  const { studio, refreshMe } = useApp();
-  const join = async () => {
-    if (studio) {
-      try {
-        await post('/auth/join', { studio_id: studio.id });
-        refreshMe();
-      } catch {
-        /* Account page allows joining later. */
-      }
-    }
-  };
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Values>({
     resolver: zodResolver(schema),
-    defaultValues: { email: '', password: '', name: '' },
+    defaultValues: { email: '', password: '' },
   });
   const submit = async (v: Values) => {
     setError(undefined);
@@ -53,20 +39,17 @@ export function AuthPage() {
         const { data, error } = await supabase.auth.signUp({
           email: v.email,
           password: v.password,
-          options: { data: { full_name: v.name || '' } },
         });
         if (error) throw error;
         if (data.session) {
-          await join();
-          navigate('/');
-        } else setMessage('請查看信箱並完成驗證，再回來登入。');
+          navigate('/account');
+        } else setMessage('請查看信箱並完成驗證，登入後至「我的資料」填寫姓名。');
       } else {
         const { error } = await supabase.auth.signInWithPassword({
           email: v.email,
           password: v.password,
         });
         if (error) throw error;
-        await join();
         navigate('/');
       }
     } catch (e) {
@@ -99,12 +82,7 @@ export function AuthPage() {
             : '從這裡開始，為自己留一段美好時光。'}
         </p>
         <form onSubmit={handleSubmit(submit)} className="form-stack">
-          {mode === 'signup' && (
-            <label>
-              你的名字
-              <input {...register('name')} autoComplete="name" placeholder="如何稱呼你？" />
-            </label>
-          )}
+          {mode === 'signup' && <p className="helper">註冊後可在「我的資料」填寫姓名。</p>}
           <label>
             Email
             <input

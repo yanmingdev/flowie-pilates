@@ -7,7 +7,7 @@ import { useApp, useStudioQuery } from '../services/context';
 import { dateTime, range, shortTime, type Session } from '../services/types';
 import { ClassCard, Empty, ErrorNote, Heading, Loading, Modal } from '../components/Ui';
 export function Classes() {
-  const { studio, user, me, refreshMe, online } = useApp();
+  const { studio, user, me, online } = useApp();
   const navigate = useNavigate();
   const [params, setParams] = useSearchParams();
   const [search, setSearch] = useState('');
@@ -23,7 +23,7 @@ export function Classes() {
   const key = useRef('');
   const branches = useStudioQuery<any[]>('branches');
   const categories = useStudioQuery<any[]>('course-categories');
-  const bookingSettings = useStudioQuery<any[]>('booking-settings');
+  const bookingSettings = useStudioQuery<any[]>('site-settings');
   const dates = range(0, 90);
   const sessions = useQuery({
     queryKey: ['sessions', studio?.id, 'explore'],
@@ -66,14 +66,7 @@ export function Classes() {
     mutationFn: async (s: Session) => {
       if (!user) throw new Error('請先登入後再預約。');
       if (!online) throw new Error('目前離線，請連線後再預約。');
-      if (
-        !me?.memberships.some(
-          (m) => m.studio_id === studio?.id && m.role === 'student' && m.is_active,
-        )
-      ) {
-        await post('/auth/join', { studio_id: studio!.id });
-        refreshMe();
-      }
+      if (!me?.profile.is_active || !me.profile.display_name) throw new Error('請先至「我的資料」填寫姓名，並確認帳號已啟用。');
       return post('/bookings', { session_id: s.id, idempotency_key: key.current });
     },
     onSuccess: (result) => {
@@ -198,7 +191,7 @@ export function Classes() {
         {sessions.isLoading ? (
           <Loading />
         ) : sessions.isError ? (
-          <ErrorNote error={sessions.error} />
+          <ErrorNote error={sessions.error} retry={() => { void sessions.refetch(); }} />
         ) : filtered.length ? (
           <div className="cards-grid">
             {filtered.map((s) => (

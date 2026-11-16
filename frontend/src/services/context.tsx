@@ -6,11 +6,14 @@ import { supabase } from './supabase';
 import type { Studio, Me } from './types';
 type Context = {
   studio?: Studio;
-  studios: Studio[];
-  setStudioId: (id: string) => void;
   user: User | null;
   me?: Me;
   authLoading: boolean;
+  brandLoading: boolean;
+  brandError: unknown;
+  retryBrand: () => void;
+  meLoading: boolean;
+  meError: unknown;
   online: boolean;
   refreshMe: () => void;
   logout: () => Promise<void>;
@@ -21,12 +24,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [authLoading, setAuthLoading] = useState(true);
   const [online, setOnline] = useState(navigator.onLine);
-  const [studio_id, setStudioId] = useState(localStorage.getItem('flowie-studio') || '');
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
       setUser(data.session?.user ?? null);
-      setAuthLoading(false);
-    });
+    }).catch(() => setUser(null)).finally(() => setAuthLoading(false));
     const { data } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
       setAuthLoading(false);
@@ -43,29 +44,30 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       window.removeEventListener('offline', on);
     };
   }, []);
-  const { data: studios = [] } = useQuery({
+  const brands = useQuery({
     queryKey: ['studios'],
     queryFn: () => api<Studio[]>('/studios'),
     retry: 1,
   });
-  const studio = studios.find((s) => s.id === studio_id) || studios[0];
-  const { data: me } = useQuery({
+  const studio = brands.data?.[0];
+  const meQuery = useQuery({
     queryKey: ['me', user?.id],
     queryFn: () => api<Me>('/auth/me'),
     enabled: !!user,
     staleTime: 30000,
   });
+  const me = meQuery.data;
   const value = useMemo(
     () => ({
       studio,
-      studios,
-      setStudioId: (id: string) => {
-        localStorage.setItem('flowie-studio', id);
-        setStudioId(id);
-      },
       user,
       me,
       authLoading,
+      brandLoading: brands.isLoading,
+      brandError: brands.error,
+      retryBrand: () => { void brands.refetch(); },
+      meLoading: meQuery.isLoading,
+      meError: meQuery.error,
       online,
       refreshMe: () => {
         qc.invalidateQueries({ queryKey: ['me'] });
@@ -75,7 +77,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         qc.clear();
       },
     }),
-    [studio, studios, user, me, authLoading, online, qc],
+    [studio, user, me, authLoading, online, qc, brands.isLoading, brands.error, brands.refetch, meQuery.isLoading, meQuery.error],
   );
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
@@ -92,7 +94,7 @@ export function useStudioQuery<T>(
   const { studio } = useApp();
   return useQuery({
     queryKey: [resource, studio?.id, params],
-    queryFn: () => api<T>(`/${resource}?${qs({ studio_id: studio!.id, ...params })}`),
+    queryFn: () => api<T>(`/${resource}?${qs(params)}`),
     enabled: !!studio && enabled,
     staleTime: 30000,
   });

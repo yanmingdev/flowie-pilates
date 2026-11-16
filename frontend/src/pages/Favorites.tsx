@@ -31,8 +31,8 @@ export function Favorites() {
         <h1>收藏課程</h1>
         <p>把喜歡的練習留在這裡。</p>
       </div>
-      {query.isError && <ErrorNote error={query.error} />}
-      {sessions.isError && <ErrorNote error={sessions.error} />}
+      {query.isError && <ErrorNote error={query.error} retry={() => { void query.refetch(); }} />}
+      {sessions.isError && <ErrorNote error={sessions.error} retry={() => { void sessions.refetch(); }} />}
       {query.data?.length ? (
         <div className="list-stack">
           {query.data.map((f) => {
@@ -43,7 +43,7 @@ export function Favorites() {
                 <div>
                   <h3>{f.course_name}</h3>
                   <p>
-                    {f.difficulty} · {f.duration_minutes} 分鐘 · {f.credit_cost} 堂
+                    {f.difficulty} · {f.default_duration_minutes} 分鐘 · {f.credit_cost} 堂
                   </p>
                   <p>{!f.is_active ? '課程目前已停用' : next ? '近期有開課' : '近期尚無場次'}</p>
                   {next && (
@@ -61,7 +61,7 @@ export function Favorites() {
           })}
         </div>
       ) : (
-        !query.isLoading && (
+        !query.isLoading && !query.isError && (
           <Empty title="還沒有收藏課程" description="在課程頁點選愛心，就能把喜歡的課程存下來。" />
         )
       )}

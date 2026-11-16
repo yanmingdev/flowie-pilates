@@ -27,9 +27,7 @@ function boundaries() {
 }
 export function AdminHome() {
   const { studio, me } = useApp();
-  const isAdmin =
-    me?.is_super_admin ||
-    me?.memberships.some((m) => m.studio_id === studio?.id && m.role === 'admin' && m.is_active);
+  const isAdmin = !!me?.profile.is_admin && !!me.profile.is_active;
   const b = boundaries();
   const [fromDate, setFromDate] = useState(
     new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Taipei' }).format(new Date(b.today)),
@@ -119,7 +117,7 @@ export function AdminHome() {
       <div className="admin-heading">
         <div>
           <span className="eyebrow">YOUR STUDIO AT A GLANCE</span>
-          <h1>早安，{me?.profile?.full_name || 'Flowie'}。</h1>
+          <h1>早安，{me?.profile?.display_name || 'Flowie'}。</h1>
           <p>今天，也讓美好的事慢慢發生。</p>
         </div>
         <Link className="button" to="/admin/calendar">
@@ -225,7 +223,7 @@ export function AdminHome() {
         {metrics.isError && <ErrorNote error={metrics.error} />}
         <div className="stats-grid">
           {[
-            ['老師授課場次', metrics.data?.teacher_session_count, '場'],
+            ['未取消排課場次', metrics.data?.teacher_session_count, '場'],
             ['課程預約率', metrics.data?.booking_rate, '%'],
             ['學生出席率', metrics.data?.attendance_rate, '%'],
             ['預約取消率', metrics.data?.cancellation_rate, '%'],
@@ -249,7 +247,7 @@ export function AdminHome() {
           ))}
         </div>
         <p className="helper">
-          預約率＝有效預約／場次名額；出席率＝已出席／已標記出席或缺席；取消率＝取消／全部預約。教室使用率＝排課時長／教室可使用時長，需先設定所有教室時段。資料依上方區間篩選。
+          未取消排課場次包含已排課與已完成場次，不代表已確認實際授課。預約率＝有效預約／場次名額；出席率＝已出席／已標記出席或缺席；取消率為區間取消數占有效預約與取消數的比例。V1 未設定教室可使用時段，因此無法計算教室使用率。
         </p>
       </section>
       <section className="panel recent-panel">
@@ -265,7 +263,7 @@ export function AdminHome() {
         {sessions.data?.length ? (
           sessions.data.slice(0, 7).map((s) => (
             <div className="recent-row" key={s.id}>
-              <div className="recent-date">{new Date(s.starts_at).getDate()}</div>
+              <div className="recent-date">{new Intl.DateTimeFormat('zh-TW', { timeZone: 'Asia/Taipei', day: 'numeric' }).format(new Date(s.starts_at))}</div>
               <div>
                 <strong>{s.courses?.name || '課程'}</strong>
                 <p>

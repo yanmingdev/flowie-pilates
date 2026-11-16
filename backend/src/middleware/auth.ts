@@ -36,3 +36,12 @@ export function requireAuth(req: Request, _res: Response, next: NextFunction) {
   if (!req.user) return next(Object.assign(new Error('UNAUTHENTICATED'), { status: 401 }));
   next();
 }
+export async function requireAdmin(req: Request, _res: Response, next: NextFunction) {
+  try {
+    if (!req.user) return next(Object.assign(new Error('UNAUTHENTICATED'), { status: 401 }));
+    const { data, error } = await req.db.from('profiles').select('is_admin,is_active').eq('id', req.user.id).maybeSingle();
+    if (error) throw error;
+    if (!data?.is_admin || !data.is_active) return next(Object.assign(new Error('FORBIDDEN'), { status: 403 }));
+    next();
+  } catch (error) { next(error); }
+}

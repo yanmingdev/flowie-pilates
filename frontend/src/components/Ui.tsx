@@ -19,10 +19,11 @@ export function Empty({ title, description }: { title: string; description?: str
     </div>
   );
 }
-export function ErrorNote({ error }: { error: unknown }) {
+export function ErrorNote({ error, retry }: { error: unknown; retry?: () => void }) {
   return (
     <div role="alert" className="error-note">
       {error instanceof Error ? error.message : '資料載入失敗，請稍後再試。'}
+      {retry && <button type="button" onClick={retry}>重新載入</button>}
     </div>
   );
 }
@@ -104,7 +105,7 @@ export function ClassCard({
         <span className="art-label">FLOWIE STUDIO</span>
         <span className="art-flower">✳</span>
         <span className="art-number">
-          {String(new Date(session.starts_at).getDate()).padStart(2, '0')}
+          {new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Taipei', day: '2-digit' }).format(new Date(session.starts_at))}
         </span>
       </div>
       <div className="class-body">

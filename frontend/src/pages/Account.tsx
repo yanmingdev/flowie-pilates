@@ -64,7 +64,7 @@ export function Bookings() {
           </button>
         ))}
       </div>
-      {query.isError && <ErrorNote error={query.error} />}{' '}
+      {query.isError && <ErrorNote error={query.error} retry={() => { void query.refetch(); }} />}{' '}
       {query.isLoading ? (
         <p>載入中…</p>
       ) : rows.length ? (
@@ -83,9 +83,9 @@ export function Bookings() {
                 </p>
                 <small>
                   取消期限 {b.cancellation_deadline_at ? dateTime(b.cancellation_deadline_at) : '—'}{' '}
-                  · 預約編號 {b.id} · {b.credits_charged} 堂{' '}
-                  {b.attendance?.status &&
-                    `· 出勤：${({ present: '已出席', absent: '缺席', unconfirmed: '未確認' } as Record<string, string>)[b.attendance.status]}`}
+                  · 預約編號 {b.id} {b.credits_charged != null && `· ${b.credits_charged} 堂`}{' '}
+                  {b.attendance_status &&
+                    `· 出勤：${({ present: '已出席', absent: '缺席', unconfirmed: '未確認' } as Record<string, string>)[b.attendance_status]}`}
                 </small>
               </div>
               {tab === 'upcoming' && (
@@ -103,9 +103,9 @@ export function Bookings() {
             </article>
           ))}
         </div>
-      ) : (
+      ) : !query.isError ? (
         <Empty title="還沒有預約" description="挑選一堂適合自己的課程吧。" />
-      )}
+      ) : null}
       {cancel && (
         <Modal title="取消預約" onClose={() => setCancel(null)}>
           <p>
@@ -147,7 +147,7 @@ export function Credits() {
         <h1>我的堂數</h1>
         <p>每一次練習，都是送給自己的禮物。</p>
       </div>
-      {packages.isError && <ErrorNote error={packages.error} />}
+      {packages.isError && <ErrorNote error={packages.error} retry={() => { void packages.refetch(); }} />}
       <div className="list-stack">
         {packages.data?.length ? (
           packages.data.map((p) => (
@@ -158,7 +158,7 @@ export function Credits() {
                 <p>
                   有效期限至{' '}
                   {new Date(p.expires_at).toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' })}{' '}
-                  · {p.status === 'active' ? '啟用' : '已停用'}
+                  · {!p.is_active ? '已停用' : new Date(p.expires_at) <= new Date() ? '已到期' : new Date(p.starts_at) > new Date() ? '尚未生效' : '啟用'}
                 </p>
               </div>
               <strong>
@@ -167,9 +167,9 @@ export function Credits() {
               </strong>
             </article>
           ))
-        ) : (
+        ) : packages.isLoading ? <p>載入中…</p> : !packages.isError ? (
           <Empty title="目前沒有課程方案" description="請洽工作室協助指派方案。" />
-        )}
+        ) : null}
       </div>
       <div className="section-heading compact">
         <div>
@@ -177,6 +177,7 @@ export function Credits() {
           <h2>堂數紀錄</h2>
         </div>
       </div>
+      {ledger.isError && <ErrorNote error={ledger.error} retry={() => { void ledger.refetch(); }} />}
       {ledger.data?.length ? (
         <div className="panel">
           {ledger.data.map((l) => (
@@ -204,25 +205,21 @@ export function Credits() {
             </div>
           ))}
         </div>
-      ) : (
+      ) : ledger.isLoading ? <p>載入中…</p> : !ledger.isError ? (
         <Empty title="尚無堂數紀錄" />
-      )}
+      ) : null}
     </main>
   );
 }
 export function Account() {
-  const { user, me, refreshMe, logout, studio } = useApp();
+  const { user, me, refreshMe, logout, meError } = useApp();
   const navigate = useNavigate();
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [birthday, setBirthday] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState<unknown>();
   useEffect(() => {
-    setName(me?.profile?.full_name || '');
-    setPhone(me?.profile?.phone || '');
-    setBirthday(me?.profile?.birthday || '');
+    setName(me?.profile?.display_name || '');
   }, [me]);
   if (!user)
     return (
@@ -230,14 +227,7 @@ export function Account() {
         <SignInPrompt />
       </main>
     );
-  const studentMembership = me?.memberships.find(
-    (m) => m.studio_id === studio?.id && m.role === 'student',
-  );
-  const isStaff =
-    me?.is_super_admin ||
-    me?.memberships.some(
-      (m) => m.studio_id === studio?.id && m.is_active && ['admin', 'teacher'].includes(m.role),
-    );
+  const isStaff = !!me?.profile.is_active && (me.profile.is_admin || me.is_teacher);
   return (
     <main className="page narrow">
       <div className="page-intro">
@@ -251,11 +241,7 @@ export function Account() {
           e.preventDefault();
           try {
             setError(undefined);
-            await patch('/auth/profile', {
-              full_name: name,
-              phone: phone || null,
-              birthday: birthday || null,
-            });
+            await patch('/auth/profile', { display_name: name });
             refreshMe();
             setMessage('資料已更新。');
           } catch (err) {
@@ -272,14 +258,7 @@ export function Account() {
           姓名
           <input required value={name} onChange={(e) => setName(e.target.value)} />
         </label>
-        <label>
-          手機
-          <input value={phone} onChange={(e) => setPhone(e.target.value)} />
-        </label>
-        <label>
-          生日
-          <input type="date" value={birthday} onChange={(e) => setBirthday(e.target.value)} />
-        </label>
+        {!!meError && <ErrorNote error={meError} />}
         {!!error && <ErrorNote error={error} />}{' '}
         {message && <div className="success-note">{message}</div>}
         <button className="button">儲存資料</button>
@@ -309,25 +288,6 @@ export function Account() {
         </label>
         <button className="button secondary">更新密碼</button>
       </form>
-      {!studentMembership && studio && (
-        <div className="panel">
-          <p>加入 {studio.name} 後，管理員即可為你指派課程方案。</p>
-          <button
-            className="button secondary"
-            onClick={async () => {
-              try {
-                await post('/auth/join', { studio_id: studio.id });
-                refreshMe();
-                setMessage('已加入工作室。');
-              } catch (err) {
-                setError(err);
-              }
-            }}
-          >
-            加入工作室
-          </button>
-        </div>
-      )}
       <div className="button-row account-links">
         <Link to="/bookings" className="button secondary">
           我的預約

@@ -5,6 +5,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
+import luxonPlugin from '@fullcalendar/luxon3';
 import zhTw from '@fullcalendar/core/locales/zh-tw';
 import { Plus } from 'lucide-react';
 import { api, apiAll, patch, post, qs } from '../services/api';
@@ -12,9 +13,9 @@ import { useApp } from '../services/context';
 import { dateTime } from '../services/types';
 import { Empty, ErrorNote, Modal } from '../components/Ui';
 function localInput(v: string | Date) {
-  const d = new Date(v);
-  return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+  return new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(v)).replace(' ', 'T');
 }
+function taipeiToIso(v: string) { return new Date(`${v}+08:00`).toISOString(); }
 function SessionForm({
   session,
   start,
@@ -26,7 +27,7 @@ function SessionForm({
 }) {
   const { studio } = useApp();
   const qc = useQueryClient();
-  const names = ['branches', 'rooms', 'courses', 'teachers', 'teacher-branches', 'teacher-courses'];
+  const names = ['branches', 'rooms', 'courses', 'teachers'];
   const data = useQueries({
     queries: names.map((n) => ({
       queryKey: [n, studio?.id],
@@ -35,7 +36,6 @@ function SessionForm({
     })),
   });
   const get = (name: string) => data[names.indexOf(name)]?.data || [];
-  const [applyFuture, setApplyFuture] = useState(false);
   const [f, setF] = useState(() => ({
     branch_id: session?.branch_id || '',
     room_id: session?.room_id || '',
@@ -54,15 +54,7 @@ function SessionForm({
     until_date: '',
   }));
   const filteredRooms = get('rooms').filter((r: any) => r.branch_id === f.branch_id && r.is_active);
-  const teacherIds = get('teacher-branches')
-    .filter((r: any) => r.branch_id === f.branch_id)
-    .map((r: any) => r.teacher_id);
-  const qualified = get('teacher-courses')
-    .filter((r: any) => r.course_id === f.course_id)
-    .map((r: any) => r.teacher_id);
-  const teachers = get('teachers').filter(
-    (t: any) => teacherIds.includes(t.id) && qualified.includes(t.id) && t.is_active,
-  );
+  const teachers = get('teachers').filter((t: any) => t.is_active);
   const mutation = useMutation({
     mutationFn: () => {
       const body = {
@@ -71,16 +63,16 @@ function SessionForm({
         room_id: f.room_id,
         course_id: f.course_id,
         teacher_id: f.teacher_id,
-        starts_at: new Date(f.starts_at).toISOString(),
-        ends_at: new Date(f.ends_at).toISOString(),
+        starts_at: taipeiToIso(f.starts_at),
+        ends_at: taipeiToIso(f.ends_at),
         capacity: Number(f.capacity),
-        booking_opens_at: f.booking_opens_at ? new Date(f.booking_opens_at).toISOString() : null,
-        booking_closes_at: f.booking_closes_at ? new Date(f.booking_closes_at).toISOString() : null,
-        cancellation_deadline: f.deadline ? new Date(f.deadline).toISOString() : null,
+        booking_opens_at: f.booking_opens_at ? taipeiToIso(f.booking_opens_at) : null,
+        booking_closes_at: f.booking_closes_at ? taipeiToIso(f.booking_closes_at) : null,
+        cancellation_deadline: f.deadline ? taipeiToIso(f.deadline) : null,
         until_date: f.until_date || null,
       };
       return session
-        ? patch(`/sessions/${session.id}${applyFuture ? '/future' : ''}`, body)
+        ? patch(`/sessions/${session.id}`, body)
         : post('/sessions', body);
     },
     onSuccess: () => {
@@ -155,7 +147,7 @@ function SessionForm({
             value={f.teacher_id}
             onChange={(e) => setF({ ...f, teacher_id: e.target.value })}
           >
-            <option value="">請選擇符合資格的老師</option>
+            <option value="">請選擇老師</option>
             {teachers.map((x: any) => (
               <option key={x.id} value={x.id}>
                 {x.name}
@@ -164,7 +156,7 @@ function SessionForm({
           </select>
         </label>
       </div>
-      <p className="helper">老師需先在資料管理中設定分店、課程資格與可授課時間。</p>
+      <p className="helper">V1 尚未設定老師的分店、課程資格及可授課時間，請由管理員人工確認。</p>
       <div className="form-two">
         <label>
           開始時間
@@ -221,16 +213,7 @@ function SessionForm({
           onChange={(e) => setF({ ...f, deadline: e.target.value })}
         />
       </label>
-      {session?.schedule_rule_id && (
-        <label className="check-label">
-          <input
-            type="checkbox"
-            checked={applyFuture}
-            onChange={(e) => setApplyFuture(e.target.checked)}
-          />
-          同時修改此規則的未來場次
-        </label>
-      )}
+      {session?.series_id && <p className="helper">此場次屬於週期課程，批次修改尚未開放，請逐場修改。</p>}
       {!session && (
         <label>
           每週重複至（留空為單次）
@@ -245,7 +228,7 @@ function SessionForm({
         <div className="summary-row">
           <span>場次預覽</span>
           <strong>
-            {dateTime(new Date(f.starts_at).toISOString())}
+            {dateTime(taipeiToIso(f.starts_at))}
             {f.until_date ? ` · 每週至 ${f.until_date}` : ''}
           </strong>
         </div>
@@ -340,15 +323,7 @@ function SessionDetails({
               取消場次
             </button>
           )}
-          {confirm && session.schedule_rule_id && (
-            <button
-              className="button danger"
-              disabled={cancel.isPending}
-              onClick={() => cancel.mutate(true)}
-            >
-              取消此後場次並退堂
-            </button>
-          )}
+          {confirm && session.series_id && <span className="helper">批次取消尚未開放，請逐場取消。</span>}
         </div>
       )}
     </>
@@ -356,10 +331,7 @@ function SessionDetails({
 }
 export function Calendar() {
   const { studio, me } = useApp();
-  const admin = !!(
-    me?.is_super_admin ||
-    me?.memberships.some((m) => m.studio_id === studio?.id && m.role === 'admin' && m.is_active)
-  );
+  const admin = !!me?.profile.is_admin && !!me.profile.is_active;
   const [dates, setDates] = useState({
     from: new Date(Date.now() - 30 * 86400000).toISOString(),
     to: new Date(Date.now() + 60 * 86400000).toISOString(),
@@ -448,7 +420,8 @@ export function Calendar() {
         </div>
         {sessions.isError && <ErrorNote error={sessions.error} />}
         <FullCalendar
-          plugins={[dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin]}
+          plugins={[dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin, luxonPlugin]}
+          timeZone="Asia/Taipei"
           locale={zhTw}
           initialView={
             window.matchMedia('(max-width: 700px)').matches ? 'listWeek' : 'dayGridMonth'

@@ -6,8 +6,7 @@ import { useApp } from '../services/context';
 import { Empty, ErrorNote, Modal } from '../components/Ui';
 import { resources, type Field } from './manage-config';
 function localDate(v: string) {
-  const d = new Date(v);
-  return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+  return new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(v)).replace(' ', 'T');
 }
 function ManageForm({
   resource,
@@ -55,6 +54,7 @@ function ManageForm({
     mutationFn: async () => {
       const body: Record<string, unknown> = {};
       for (const f of config.fields) {
+        if (f.readOnly) continue;
         const v = values[f.key];
         if (v === '' || v === null) {
           if (
@@ -72,11 +72,11 @@ function ManageForm({
           f.type === 'number' || f.key === 'weekday'
             ? Number(v)
             : f.type === 'datetime-local'
-              ? new Date(v).toISOString()
+              ? new Date(`${v}+08:00`).toISOString()
               : v;
       }
       return row
-        ? patch(`/${resource}/${row.id}?studio_id=${studio!.id}`, body)
+        ? patch(`/${resource}/${row.id ?? row.section_type}?studio_id=${studio!.id}`, body)
         : post(`/${resource}`, { ...body, studio_id: studio!.id });
     },
     onSuccess: () => {
@@ -115,6 +115,7 @@ function ManageForm({
               ) : f.type === 'select' ? (
                 <select
                   required={f.required}
+                  disabled={!!row && f.key === 'section_type'}
                   value={values[f.key]}
                   onChange={(e) => setValues({ ...values, [f.key]: e.target.value })}
                 >
@@ -129,6 +130,7 @@ function ManageForm({
                 <input
                   type={f.type || 'text'}
                   required={f.required}
+                  disabled={f.readOnly || (!!row && f.key === 'id')}
                   value={values[f.key]}
                   onChange={(e) => setValues({ ...values, [f.key]: e.target.value })}
                 />
@@ -140,58 +142,6 @@ function ManageForm({
       {mutation.isError && <ErrorNote error={mutation.error} />}
       <button className="button button-full" disabled={mutation.isPending}>
         {mutation.isPending ? '儲存中…' : '儲存'}
-      </button>
-    </form>
-  );
-}
-function StudentEdit({ student, onClose }: { student: any; onClose: () => void }) {
-  const { studio } = useApp();
-  const qc = useQueryClient();
-  const [name, setName] = useState(student.full_name || '');
-  const [phone, setPhone] = useState(student.phone || '');
-  const [birthday, setBirthday] = useState(student.birthday || '');
-  const [notes, setNotes] = useState(student.notes || '');
-  const save = useMutation({
-    mutationFn: () =>
-      patch(`/students/${student.student_id}/profile`, {
-        studio_id: studio!.id,
-        full_name: name,
-        phone: phone || null,
-        birthday: birthday || null,
-        notes: notes || null,
-      }),
-    onSuccess: () => {
-      qc.invalidateQueries();
-      onClose();
-    },
-  });
-  return (
-    <form
-      className="form-stack"
-      onSubmit={(e) => {
-        e.preventDefault();
-        save.mutate();
-      }}
-    >
-      <label>
-        姓名
-        <input required value={name} onChange={(e) => setName(e.target.value)} />
-      </label>
-      <label>
-        手機
-        <input value={phone} onChange={(e) => setPhone(e.target.value)} />
-      </label>
-      <label>
-        生日
-        <input type="date" value={birthday} onChange={(e) => setBirthday(e.target.value)} />
-      </label>
-      <label>
-        備註
-        <textarea value={notes} onChange={(e) => setNotes(e.target.value)} />
-      </label>
-      {save.isError && <ErrorNote error={save.error} />}
-      <button className="button" disabled={save.isPending}>
-        儲存學生資料
       </button>
     </form>
   );
@@ -251,7 +201,7 @@ function StudentHistory({ student }: { student: any }) {
   });
   return (
     <div>
-      <p className="helper">{student.full_name || student.email} 的預約、出勤與堂數紀錄。</p>
+      <p className="helper">{student.display_name || student.student_id} 的預約、出勤與堂數紀錄。</p>
       {result.isError && <ErrorNote error={result.error} />}
       <h3>預約與出勤</h3>
       {result.data?.bookings?.length ? (
@@ -266,7 +216,7 @@ function StudentHistory({ student }: { student: any }) {
                 · {b.status}
               </p>
             </div>
-            <span>{b.attendance?.status || '未確認'}</span>
+            <span>{b.attendance_status || '未確認'}</span>
           </div>
         ))
       ) : (
@@ -279,7 +229,7 @@ function StudentHistory({ student }: { student: any }) {
             <div>
               <strong>{l.entry_type}</strong>
               <p>
-                {new Date(l.created_at).toLocaleDateString('zh-TW')} · {l.note || ''}
+                {new Date(l.created_at).toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' })} · {l.note || ''}
               </p>
             </div>
             <strong>
@@ -300,12 +250,10 @@ function Students() {
   const [student, setStudent] = useState('');
   const [package_id, setPackageId] = useState('');
   const [notice, setNotice] = useState('');
-  const [editing, setEditing] = useState<any>(null);
   const [adjusting, setAdjusting] = useState<any>(null);
   const [history, setHistory] = useState<any>(null);
   const [search, setSearch] = useState('');
   const [studentPage, setStudentPage] = useState(1);
-  const [enrollId, setEnrollId] = useState('');
   const grantKey = useRef(crypto.randomUUID());
   const students = useQuery({
     queryKey: ['students', studio?.id, studentPage, search],
@@ -344,42 +292,13 @@ function Students() {
       patch(`/students/${s.student_id}/status`, { studio_id: studio!.id, is_active: !s.is_active }),
     onSuccess: () => qc.invalidateQueries(),
   });
-  const enroll = useMutation({
-    mutationFn: () => post('/students', { studio_id: studio!.id, student_id: enrollId }),
-    onSuccess: () => {
-      setEnrollId('');
-      qc.invalidateQueries({ queryKey: ['students'] });
-      setNotice('已將使用者加入此品牌。');
-    },
-  });
   return (
     <>
-      <div className="panel">
-        <h3>加入已註冊的學生</h3>
-        <p className="helper">請學生先註冊，再提供「我的資料」中的 User ID。</p>
-        <div className="form-two">
-          <label>
-            學生 User ID
-            <input
-              value={enrollId}
-              onChange={(e) => setEnrollId(e.target.value)}
-              placeholder="UUID"
-            />
-          </label>
-          <button
-            className="button"
-            disabled={!enrollId || enroll.isPending}
-            onClick={() => enroll.mutate()}
-          >
-            加入學生
-          </button>
-        </div>
-        {enroll.isError && <ErrorNote error={enroll.error} />}
-      </div>
+      <div className="panel"><h3>已註冊的帳號</h3><p className="helper">V1 沒有獨立的學生身分表，此清單顯示非管理員帳號。註冊後會自動建立資料，請先填寫姓名。</p></div>
       <div className="panel">
         <h3>指派學生方案</h3>
         <p className="helper">
-          學生須先註冊並加入此品牌。選單顯示目前學生頁的資料，可用下方搜尋或換頁；方案不包含線上付款。
+          學生須先註冊並填寫姓名。選單顯示目前學生頁的資料，可用下方搜尋或換頁；方案不包含線上付款。
         </p>
         <div className="filter-grid">
           <label>
@@ -390,7 +309,7 @@ function Students() {
                 ?.filter((s) => s.is_active)
                 .map((s) => (
                   <option key={s.student_id} value={s.student_id}>
-                    {s.full_name || s.email || s.student_id}
+                    {s.display_name || s.student_id}
                   </option>
                 ))}
             </select>
@@ -441,19 +360,14 @@ function Students() {
         {toggle.isError && <ErrorNote error={toggle.error} />}{' '}
         {students.data?.data.length ? (
           students.data.data.map((s) => (
-            <div key={s.id} className="student-row">
+            <div key={s.student_id} className="student-row">
               <div>
-                <strong>{s.full_name || '未填姓名'}</strong>
-                <p>
-                  {s.email} · {s.phone || '未填手機'}
-                </p>
+                <strong>{s.display_name || '未填姓名'}</strong>
                 <small>
                   {s.is_active ? '啟用' : '停用'} · ID {s.student_id}
                 </small>
                 <div className="button-row">
-                  <button className="text-link" onClick={() => setEditing(s)}>
-                    編輯資料
-                  </button>
+                  <span className="helper">姓名由使用者在「我的資料」維護。</span>
                   <button className="text-link" onClick={() => setHistory(s)}>
                     查看紀錄
                   </button>
@@ -472,7 +386,7 @@ function Students() {
                   .map((p) => (
                     <p key={p.id}>
                       {p.course_packages?.name}：{p.balance} 堂 ·{' '}
-                      {new Date(p.expires_at).toLocaleDateString('zh-TW')}{' '}
+                      {new Date(p.expires_at).toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' })}{' '}
                       <button className="text-link" onClick={() => setAdjusting(p)}>
                         調整堂數
                       </button>
@@ -509,113 +423,11 @@ function Students() {
           <StudentHistory student={history} />
         </Modal>
       )}
-      {editing && (
-        <Modal title="編輯學生資料" onClose={() => setEditing(null)}>
-          <StudentEdit student={editing} onClose={() => setEditing(null)} />
-        </Modal>
-      )}
       {adjusting && (
         <Modal title="調整堂數" onClose={() => setAdjusting(null)}>
           <CreditAdjust item={adjusting} onClose={() => setAdjusting(null)} />
         </Modal>
       )}
-    </>
-  );
-}
-function Platform() {
-  const { studio, studios } = useApp();
-  const qc = useQueryClient();
-  const [name, setName] = useState('');
-  const [slug, setSlug] = useState('');
-  const [user_id, setUserId] = useState('');
-  const [notice, setNotice] = useState('');
-  const create = useMutation({
-    mutationFn: () => post('/studios', { name, slug }),
-    onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['studios'] });
-      setName('');
-      setSlug('');
-      setNotice('品牌已建立。請切換品牌並建立網站設定。');
-    },
-  });
-  const assign = useMutation({
-    mutationFn: (is_active: boolean) =>
-      post(`/studios/${studio!.id}/admins`, { user_id, is_active }),
-    onSuccess: () => setNotice('品牌管理員權限已更新。'),
-  });
-  const activate = useMutation({
-    mutationFn: (is_active: boolean) => patch(`/studios/${studio!.id}`, { is_active: is_active }),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['studios'] }),
-  });
-  return (
-    <>
-      <section className="panel">
-        <h3>建立品牌</h3>
-        <form
-          className="form-stack"
-          onSubmit={(e) => {
-            e.preventDefault();
-            create.mutate();
-          }}
-        >
-          <label>
-            品牌名稱
-            <input required value={name} onChange={(e) => setName(e.target.value)} />
-          </label>
-          <label>
-            品牌代碼（小寫英文、數字、連字號）
-            <input
-              required
-              pattern="[a-z0-9-]+"
-              value={slug}
-              onChange={(e) => setSlug(e.target.value)}
-            />
-          </label>
-          {create.isError && <ErrorNote error={create.error} />}
-          <button className="button" disabled={create.isPending}>
-            建立品牌
-          </button>
-        </form>
-      </section>
-      <section className="panel">
-        <h3>設定目前品牌的管理員</h3>
-        <p className="helper">
-          切換上方品牌，並輸入已註冊使用者的 User ID。此操作只開放平台管理員。
-        </p>
-        <label>
-          使用者 User ID
-          <input value={user_id} onChange={(e) => setUserId(e.target.value)} placeholder="UUID" />
-        </label>
-        <div className="button-row">
-          <button
-            className="button"
-            disabled={!user_id || assign.isPending}
-            onClick={() => assign.mutate(true)}
-          >
-            指派管理員
-          </button>
-          <button
-            className="button secondary"
-            disabled={!user_id || assign.isPending}
-            onClick={() => assign.mutate(false)}
-          >
-            停用管理員
-          </button>
-        </div>
-        {assign.isError && <ErrorNote error={assign.error} />}
-        <div className="button-row">
-          <button
-            className="button secondary"
-            disabled={!studio || activate.isPending}
-            onClick={() => activate.mutate(!(studio as any)?.is_active)}
-          >
-            {(studio as any)?.is_active ? '停用目前品牌' : '啟用目前品牌'}
-          </button>
-        </div>
-        <p className="helper">目前共有 {studios.length} 個品牌。</p>
-        {activate.isError && <ErrorNote error={activate.error} />}{' '}
-        {notice && <div className="success-note">{notice}</div>}
-      </section>
     </>
   );
 }
@@ -626,16 +438,14 @@ export function Manage() {
   const [search, setSearch] = useState('');
   const [modal, setModal] = useState(false);
   const [page, setPage] = useState(1);
-  const admin =
-    me?.is_super_admin ||
-    me?.memberships.some((m) => m.studio_id === studio?.id && m.role === 'admin' && m.is_active);
+  const admin = !!me?.profile.is_admin && !!me.profile.is_active;
   const query = useQuery({
     queryKey: [resource, studio?.id, page, search],
     queryFn: () =>
       apiPage<any>(
         `/${resource}?${qs({ studio_id: studio!.id, page: String(page), limit: '20', q: search })}`,
       ),
-    enabled: !!studio && resource !== 'students' && resource !== 'platform' && !!admin,
+    enabled: !!studio && resource !== 'students' && !!admin,
   });
   const rows = useMemo(
     () =>
@@ -648,19 +458,12 @@ export function Manage() {
             'course-categories',
             'courses',
             'packages',
-            'banners',
             'announcements',
           ].includes(resource) || JSON.stringify(r).toLowerCase().includes(search.toLowerCase()),
       ),
     [query.data, search, resource],
   );
   const config = resources[resource];
-  const qc = useQueryClient();
-  const remove = useMutation({
-    mutationFn: (id: string) =>
-      api(`/${resource}/${id}?studio_id=${studio!.id}`, { method: 'DELETE' }),
-    onSuccess: () => qc.invalidateQueries(),
-  });
   if (!admin) return <Empty title="資料管理僅限管理員" />;
   return (
     <>
@@ -683,7 +486,6 @@ export function Manage() {
             }}
           >
             <option value="students">學生與方案指派</option>
-            {me?.is_super_admin && <option value="platform">平台與品牌管理</option>}
             {Object.entries(resources).map(([key, c]) => (
               <option key={key} value={key}>
                 {c.label}
@@ -691,12 +493,13 @@ export function Manage() {
             ))}
           </select>
         </label>
-        {resource !== 'students' && resource !== 'platform' && (
+        {resource !== 'students' && (
           <>
             <label className="search-box">
               <Search size={17} />
               <input
                 aria-label="搜尋"
+                disabled={resource === 'teachers'}
                 value={search}
                 onChange={(e) => {
                   setSearch(e.target.value);
@@ -710,7 +513,6 @@ export function Manage() {
                     'course-categories',
                     'courses',
                     'packages',
-                    'banners',
                     'announcements',
                   ].includes(resource)
                     ? `搜尋${config.label}`
@@ -718,7 +520,7 @@ export function Manage() {
                 }
               />
             </label>
-            <button
+            {!(resource === 'site-settings' && rows.length > 0) && <button
               className="button"
               onClick={() => {
                 setEditing(null);
@@ -727,18 +529,15 @@ export function Manage() {
             >
               <Plus size={17} />
               新增{config.label}
-            </button>
+            </button>}
           </>
         )}
       </div>
       {resource === 'students' ? (
         <Students />
-      ) : resource === 'platform' ? (
-        <Platform />
       ) : (
         <>
-          {query.isError && <ErrorNote error={query.error} />}{' '}
-          {remove.isError && <ErrorNote error={remove.error} />}{' '}
+          {query.isError && <ErrorNote error={query.error} retry={() => { void query.refetch(); }} />}{' '}
           <div className="panel">
             <div className="table-wrap">
               <table>
@@ -753,7 +552,7 @@ export function Manage() {
                 </thead>
                 <tbody>
                   {rows.map((row) => (
-                    <tr key={row.id}>
+                    <tr key={row.id ?? row.section_type}>
                       {config.fields.slice(0, 4).map((f) => (
                         <td key={f.key}>
                           {typeof row[f.key] === 'boolean'
@@ -763,7 +562,7 @@ export function Manage() {
                             : String(row[f.key] ?? '—')}
                         </td>
                       ))}
-                      <td>{row.is_active === false ? '停用' : '啟用'}</td>
+                      <td>{row.is_active === undefined ? '—' : row.is_active ? '啟用' : '停用'}</td>
                       <td>
                         <button
                           className="text-link"
@@ -774,25 +573,13 @@ export function Manage() {
                         >
                           編輯
                         </button>
-                        {['teacher-branches', 'teacher-courses', 'package-courses'].includes(
-                          resource,
-                        ) && (
-                          <button
-                            className="text-link"
-                            onClick={() => {
-                              if (window.confirm('確定移除此項資格？')) remove.mutate(row.id);
-                            }}
-                          >
-                            移除
-                          </button>
-                        )}
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-            {!rows.length && !query.isLoading && <Empty title={`尚無${config.label}資料`} />}
+            {!rows.length && !query.isLoading && !query.isError && <Empty title={`尚無${config.label}資料`} />}
             <div className="pagination">
               <button
                 className="button secondary"

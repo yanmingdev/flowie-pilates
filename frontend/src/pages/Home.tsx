@@ -14,7 +14,6 @@ import { range, type Session } from '../services/types';
 import { ClassCard, Empty, ErrorNote, Heading, Loading } from '../components/Ui';
 import { Button } from '../components/ui/button';
 type Section = {
-  id: string;
   section_type: string;
   title: string;
   subtitle: string;
@@ -23,21 +22,10 @@ type Section = {
   image_url: string | null;
   link_url: string | null;
 };
-type Banner = {
-  id: string;
-  title: string;
-  subtitle: string;
-  image_url: string | null;
-  link_url: string | null;
-  sort_order: number;
-  is_active: boolean;
-};
 export function Home() {
-  const { studio } = useApp();
+  const { studio, brandLoading, brandError, retryBrand } = useApp();
   const navigate = useNavigate();
   const sections = useStudioQuery<Section[]>('homepage-sections');
-  const banners = useStudioQuery<Banner[]>('banners');
-  const site = useStudioQuery<any[]>('site-settings');
   const ann = useStudioQuery<any[]>('announcements');
   const dates = range(0, 30);
   const publicTeachers = useQuery({
@@ -55,20 +43,19 @@ export function Home() {
     .sort((a, b) => a.sort_order - b.sort_order);
   return (
     <main className="page home-page">
-      {!studio && (
+      {!studio && brandLoading && (
         <div className="empty">
           <h2>正在連線 Flowie</h2>
           <p>請確認後端與 Supabase 已啟動，並檢查環境變數。</p>
         </div>
       )}
-      {sections.isError && <ErrorNote error={sections.error} />}
+      {!studio && !!brandError && <div className="error-note" role="alert">無法連線至 Flowie，請檢查後端與 Supabase 設定。 <button onClick={retryBrand}>重新載入</button></div>}
+      {!studio && !brandLoading && !brandError && <Empty title="尚未設定品牌資料" description="請確認 site_settings 中已有品牌設定。" />}
+      {sections.isError && <ErrorNote error={sections.error} retry={() => { void sections.refetch(); }} />}
       {sections.isLoading && studio && <Loading />}
       {active.map((section) => {
         if (section.section_type === 'hero') {
-          const banner = banners.data
-            ?.filter((b) => b.is_active)
-            .sort((a, b) => a.sort_order - b.sort_order)[0];
-          const configuredLink = banner?.link_url || section.link_url || '/classes';
+          const configuredLink = section.link_url || '/classes';
           const href =
             (configuredLink.startsWith('/') && !configuredLink.startsWith('//')) ||
             configuredLink.startsWith('https://')
@@ -77,18 +64,18 @@ export function Home() {
           return (
             <section
               className="hero"
-              key={section.id}
+              key={section.section_type}
               style={
-                banner?.image_url || section.image_url
+                section.image_url
                   ? {
-                      backgroundImage: `linear-gradient(90deg,rgba(247,243,238,.94),rgba(247,243,238,.15) 70%),url(${JSON.stringify(banner?.image_url || section.image_url)})`,
+                      backgroundImage: `linear-gradient(90deg,rgba(247,243,238,.94),rgba(247,243,238,.15) 70%),url(${JSON.stringify(section.image_url)})`,
                     }
                   : undefined
               }
             >
               <div className="hero-content">
-                <h1>{banner?.title || section.title || site.data?.[0]?.headline}</h1>
-                <p>{banner?.subtitle || section.subtitle || site.data?.[0]?.subheadline}</p>
+                <h1>{section.title}</h1>
+                <p>{section.subtitle}</p>
                 <Button asChild>
                   <a href={href}>
                     預約課程 <ArrowRight size={17} />
@@ -102,7 +89,7 @@ export function Home() {
           return (
             <section
               className="home-shortcuts"
-              key={section.id}
+              key={section.section_type}
               aria-label={section.title || '功能捷徑'}
             >
               {[
@@ -123,7 +110,7 @@ export function Home() {
           );
         if (section.section_type === 'courses')
           return (
-            <section className="content-section" key={section.id}>
+            <section className="content-section" key={section.section_type}>
               <Heading
                 eyebrow="YOUR NEXT MOMENT"
                 title={section.title}
@@ -137,7 +124,7 @@ export function Home() {
               {sessions.isLoading ? (
                 <Loading />
               ) : sessions.isError ? (
-                <ErrorNote error={sessions.error} />
+                <ErrorNote error={sessions.error} retry={() => { void sessions.refetch(); }} />
               ) : sessions.data?.length ? (
                 <div className="cards-grid">
                   {sessions.data.slice(0, 3).map((s) => (
@@ -156,13 +143,13 @@ export function Home() {
         if (section.section_type === 'teachers') {
           const teachers = (publicTeachers.data || []).slice(0, 4);
           return (
-            <section className="content-section teachers-section" key={section.id}>
+            <section className="content-section teachers-section" key={section.section_type}>
               <Heading
                 eyebrow="MOVE WITH US"
                 title={section.title}
                 description={section.subtitle}
               />
-              {teachers.length ? (
+              {publicTeachers.isError ? <ErrorNote error={publicTeachers.error} retry={() => { void publicTeachers.refetch(); }} /> : publicTeachers.isLoading ? <Loading /> : teachers.length ? (
                 <div className="teacher-grid">
                   {teachers.map((t, i) => (
                     <div className="teacher-card" key={t.id}>
@@ -189,13 +176,13 @@ export function Home() {
         }
         if (section.section_type === 'announcements')
           return (
-            <section className="content-section" key={section.id}>
+            <section className="content-section" key={section.section_type}>
               <Heading
                 eyebrow="FLOWIE NOTES"
                 title={section.title}
                 description={section.subtitle}
               />
-              {ann.data?.length ? (
+              {ann.isError ? <ErrorNote error={ann.error} retry={() => { void ann.refetch(); }} /> : ann.isLoading ? <Loading /> : ann.data?.length ? (
                 <div className="announcement-list">
                   {ann.data
                     .filter(

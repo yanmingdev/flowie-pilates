@@ -2,16 +2,22 @@ import { Route, Routes } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import { Layout, AdminLayout } from './components/Layout';
 import { Home } from './pages/Home';
-import { Classes } from './pages/Classes';
-import { Account, Bookings, Credits } from './pages/Account';
-import { AuthPage, ResetPassword } from './pages/Auth';
-import { AdminHome } from './pages/AdminHome';
-import { Favorites } from './pages/Favorites';
-import { History } from './pages/History';
-import { Announcements } from './pages/Announcements';
-import { TeachingRecords } from './pages/TeachingRecords';
+
+// Load each page when it is visited; shared modules are bundled only once.
+const Classes = lazy(() => import('./pages/Classes').then((m) => ({ default: m.Classes })));
+const Account = lazy(() => import('./pages/Account').then((m) => ({ default: m.Account })));
+const Bookings = lazy(() => import('./pages/Account').then((m) => ({ default: m.Bookings })));
+const Credits = lazy(() => import('./pages/Account').then((m) => ({ default: m.Credits })));
+const AuthPage = lazy(() => import('./pages/Auth').then((m) => ({ default: m.AuthPage })));
+const ResetPassword = lazy(() => import('./pages/Auth').then((m) => ({ default: m.ResetPassword })));
+const AdminHome = lazy(() => import('./pages/AdminHome').then((m) => ({ default: m.AdminHome })));
+const Favorites = lazy(() => import('./pages/Favorites').then((m) => ({ default: m.Favorites })));
+const History = lazy(() => import('./pages/History').then((m) => ({ default: m.History })));
+const Announcements = lazy(() => import('./pages/Announcements').then((m) => ({ default: m.Announcements })));
+const TeachingRecords = lazy(() => import('./pages/TeachingRecords').then((m) => ({ default: m.TeachingRecords })));
 const Manage = lazy(() => import('./pages/Manage').then((m) => ({ default: m.Manage })));
 const Calendar = lazy(() => import('./pages/Calendar').then((m) => ({ default: m.Calendar })));
+
 export function App() {
   return (
     <Suspense fallback={<main className="page">載入中…</main>}>

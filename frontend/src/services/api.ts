@@ -20,7 +20,8 @@ async function request<T>(
   const {
     data: { session },
   } = await supabase.auth.getSession();
-  const response = await fetch(`${base}${path}`, {
+  let response: Response;
+  try { response = await fetch(`${base}${path}`, {
     ...options,
     headers: {
       'Content-Type': 'application/json',
@@ -28,7 +29,7 @@ async function request<T>(
       ...options.headers,
     },
     cache: 'no-store',
-  });
+  }); } catch { throw new ApiError('無法連線到後端，請確認服務已啟動後重試。', 'NETWORK_ERROR'); }
   const json = await response.json().catch(() => ({}));
   if (!response.ok)
     throw new ApiError(

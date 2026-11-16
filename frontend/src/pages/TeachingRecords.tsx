@@ -21,7 +21,7 @@ export function TeachingRecords() {
   const { studio } = useApp();
   const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Taipei' }).format(new Date());
   const [from, setFrom] = useState(today.slice(0, 8) + '01');
-  const [to, setTo] = useState(new Date(Date.now() + 86400000).toISOString().slice(0, 10));
+  const [to, setTo] = useState(new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Taipei' }).format(new Date(Date.now() + 86400000)));
   const [filter, setFilter] = useState('');
   const records = useQuery({
     queryKey: ['teaching-records', studio?.id, from, to],
