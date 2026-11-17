@@ -1,18 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link, useNavigate } from 'react-router-dom';
-import {
-  ArrowRight,
-  CalendarDays,
-  WalletCards,
-  ClipboardList,
-  Heart,
-  UserRound,
-} from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { api, qs } from '../services/api';
 import { useApp, useStudioQuery } from '../services/context';
 import { range, type Session } from '../services/types';
 import { ClassCard, Empty, ErrorNote, Heading, Loading } from '../components/Ui';
 import { Button } from '../components/ui/button';
+type KnowledgeArticle = { id: string; title: string; body_area: string; summary: string; image_url: string; sort_order: number };
 type Section = {
   section_type: string;
   title: string;
@@ -28,10 +22,9 @@ export function Home() {
   const sections = useStudioQuery<Section[]>('homepage-sections');
   const ann = useStudioQuery<any[]>('announcements');
   const dates = range(0, 30);
-  const publicTeachers = useQuery({
-    queryKey: ['public-teachers', studio?.id],
-    queryFn: () => api<any[]>(`/teachers/public?studio_id=${studio!.id}`),
-    enabled: !!studio,
+  const knowledge = useQuery({
+    queryKey: ['knowledge-articles'],
+    queryFn: () => api<KnowledgeArticle[]>('/knowledge-articles'),
   });
   const sessions = useQuery({
     queryKey: ['sessions', studio?.id, 'home'],
@@ -85,29 +78,7 @@ export function Home() {
             </section>
           );
         }
-        if (section.section_type === 'quick_booking')
-          return (
-            <section
-              className="home-shortcuts"
-              key={section.section_type}
-              aria-label={section.title || '功能捷徑'}
-            >
-              {[
-                { to: '/classes', label: '預約課程', Icon: CalendarDays },
-                { to: '/credits', label: '我的堂數', Icon: WalletCards },
-                { to: '/history', label: '上課紀錄', Icon: ClipboardList },
-                { to: '/favorites', label: '收藏課程', Icon: Heart },
-                { to: '/account', label: '個人帳戶', Icon: UserRound },
-              ].map(({ to, label, Icon }) => (
-                <Link to={to} key={to}>
-                  <span>
-                    <Icon size={23} strokeWidth={1.6} />
-                  </span>
-                  <small>{label}</small>
-                </Link>
-              ))}
-            </section>
-          );
+        if (section.section_type === 'quick_booking') return null;
         if (section.section_type === 'courses')
           return (
             <section className="content-section" key={section.section_type}>
@@ -140,40 +111,25 @@ export function Home() {
               )}
             </section>
           );
-        if (section.section_type === 'teachers') {
-          const teachers = (publicTeachers.data || []).slice(0, 4);
-          return (
-            <section className="content-section teachers-section" key={section.section_type}>
-              <Heading
-                eyebrow="MOVE WITH US"
-                title={section.title}
-                description={section.subtitle}
-              />
-              {publicTeachers.isError ? <ErrorNote error={publicTeachers.error} retry={() => { void publicTeachers.refetch(); }} /> : publicTeachers.isLoading ? <Loading /> : teachers.length ? (
-                <div className="teacher-grid">
-                  {teachers.map((t, i) => (
-                    <div className="teacher-card" key={t.id}>
-                      <div
-                        className={`teacher-art teacher-art-${i % 4}`}
-                        style={
-                          t.photo_url
-                            ? { backgroundImage: `url(${JSON.stringify(t.photo_url)})` }
-                            : undefined
-                        }
-                      >
-                        <span>✳</span>
-                      </div>
-                      <strong>{t.name}</strong>
-                      <small>FLOWIE TEACHER</small>
+        if (section.section_type === 'teachers') return (
+          <section className="content-section knowledge-section" key={section.section_type}>
+            <Heading eyebrow="MOVE WITH CARE" title={section.title || "認識自己的身體"} description={section.subtitle || "從簡單的皮拉提斯練習，了解身體的感受與力量。"} />
+            {knowledge.isError ? <ErrorNote error={knowledge.error} retry={() => { void knowledge.refetch(); }} /> : knowledge.isLoading ? <Loading /> : knowledge.data?.length ? (
+              <div className="cards-grid knowledge-grid">
+                {knowledge.data.slice(0, 3).map((article) => (
+                  <article className="class-card knowledge-card" key={article.id}>
+                    <img src={article.image_url} alt={`${article.title}的姿勢示意`} loading="lazy" />
+                    <div className="class-body">
+                      <span className="eyebrow">{article.body_area}</span>
+                      <h3>{article.title}</h3>
+                      <p>{article.summary}</p>
                     </div>
-                  ))}
-                </div>
-              ) : (
-                <Empty title="尚無老師資料" />
-              )}
-            </section>
-          );
-        }
+                  </article>
+                ))}
+              </div>
+            ) : <Empty title="身體知識即將上線" />}
+          </section>
+        );
         if (section.section_type === 'announcements')
           return (
             <section className="content-section" key={section.section_type}>

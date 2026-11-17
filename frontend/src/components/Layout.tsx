@@ -4,8 +4,7 @@ import {
   Home,
   Layers,
   UserRound,
-  Heart,
-  Activity,
+  BookOpen,
   Bell,
   LayoutDashboard,
   Menu,
@@ -15,10 +14,11 @@ import { useRegisterSW } from 'virtual:pwa-register/react';
 import { useApp, useStudioQuery } from '../services/context';
 const links = [
   { to: '/', label: '首頁', Icon: Home },
+  { to: '/teachers', label: '師資介紹', Icon: UserRound },
   { to: '/classes', label: '探索課程', Icon: Layers },
-  { to: '/favorites', label: '收藏', Icon: Heart },
-  { to: '/history', label: '紀錄', Icon: Activity },
-  { to: '/account', label: '我的', Icon: UserRound },
+  { to: '/my-calendar', label: '行事曆', Icon: CalendarDays },
+  { to: '/history', label: '上課紀錄', Icon: BookOpen },
+  { to: '/account', label: '我的帳戶', Icon: UserRound },
 ];
 export function Layout() {
   const { studio, user, me, online } = useApp();
@@ -79,13 +79,7 @@ export function Layout() {
           <NavLink end={to === '/'} key={to} to={to}>
             <Icon size={20} />
             <span>
-              {label === '探索課程'
-                ? '課程'
-                : label === '我的預約'
-                  ? '預約'
-                  : label === '我的堂數'
-                    ? '堂數'
-                    : label}
+              {label === '探索課程' ? '課程' : label === '上課紀錄' ? '紀錄' : label === '我的帳戶' ? '帳戶' : label}
             </span>
           </NavLink>
         ))}

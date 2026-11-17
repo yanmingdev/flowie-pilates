@@ -38,6 +38,11 @@ router.get('/teachers/public', asyncRoute(async (req, res) => {
   const data = await rpc(req.db, 'flowie_public_teachers', {}) as Array<{ teacher_id: string; display_name: string; photo_url: string | null }>;
   res.json({ data: data.map((t) => ({ id: t.teacher_id, name: t.display_name, photo_url: t.photo_url })) });
 }));
+router.get('/knowledge-articles', asyncRoute(async (req, res) => {
+  const { data, error } = await req.db.from('knowledge_articles').select('id,title,body_area,summary,image_url,sort_order').eq('is_active', true).order('sort_order', { ascending: true });
+  if (error) throw error;
+  res.json({ data: data ?? [] });
+}));
 router.get('/favorites', requireAuth, asyncRoute(async (req, res) => {
   const { data, error } = await req.db.from('course_favorites').select('course_id,created_at,courses(id,name,image_url,description,difficulty,default_duration_minutes,credit_cost,is_active)').eq('student_id', req.user!.id).order('created_at', { ascending: false });
   if (error) throw error;
@@ -110,6 +115,10 @@ async function ledgerFor(req: Request, student?: string) {
   if(error) throw error;
   return data ?? [];
 }
+router.patch('/bookings/:id/teacher-feedback', requireAuth, asyncRoute(async (req, res) => {
+  const feedback = z.object({ feedback: z.string().trim().min(1).max(2000) }).strict().parse(req.body);
+  res.json({ data: await rpcSingle(req.db, 'flowie_v1_set_teacher_feedback', { p_booking: uuid.parse(req.params.id), p_feedback: feedback.feedback }) });
+}));
 router.get('/student-packages', requireAuth, asyncRoute(async(req,res)=>{ res.json({data:await packagesFor(req,req.query.scope==='mine'?req.user!.id:undefined)}); }));
 router.get('/credit-ledger', requireAuth, asyncRoute(async(req,res)=>{ res.json({data:await ledgerFor(req,req.query.scope==='mine'?req.user!.id:undefined)}); }));
 router.post('/student-packages', requireAdmin, asyncRoute(async(req,res)=>{

@@ -288,10 +288,12 @@ export function Account() {
         </label>
         <button className="button secondary">更新密碼</button>
       </form>
+      <h2 className="account-section-title">我的學習</h2>
       <div className="button-row account-links">
         <Link to="/bookings" className="button secondary">
           我的預約
         </Link>
+        <Link to="/favorites" className="button secondary">收藏的課程</Link>
         <Link to="/credits" className="button secondary">
           我的堂數
         </Link>

@@ -57,6 +57,7 @@ export function History() {
                     )[b.attendance_status || 'unconfirmed']
                   }
                 </small>
+                <div className="teacher-feedback"><strong>老師的課後建議</strong><p>{b.teacher_feedback || '老師尚未留下建議。'}</p></div>
               </div>
             </article>
           ))}

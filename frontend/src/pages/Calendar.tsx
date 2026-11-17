@@ -12,6 +12,21 @@ import { api, apiAll, patch, post, qs } from '../services/api';
 import { useApp } from '../services/context';
 import { dateTime } from '../services/types';
 import { Empty, ErrorNote, Modal } from '../components/Ui';
+function StudentFeedback({ student, sessionId }: { student: any; sessionId: string }) {
+  const [feedback, setFeedback] = useState(student.teacher_feedback || '');
+  const qc = useQueryClient();
+  const save = useMutation({
+    mutationFn: () => patch(`/bookings/${student.booking_id}/teacher-feedback`, { feedback }),
+    onSuccess: () => { void qc.invalidateQueries({ queryKey: ['roster', sessionId] }); },
+  });
+  return <div className="feedback-field">
+    <label>給 {student.student_name || '學生'} 的課後建議
+      <textarea value={feedback} maxLength={2000} placeholder="請記錄這堂課的練習建議" onChange={(e) => setFeedback(e.target.value)} />
+    </label>
+    <button className="button secondary" type="button" disabled={!feedback.trim() || save.isPending} onClick={() => save.mutate()}>儲存建議</button>
+    {save.isSuccess && <span role="status">已儲存</span>}{save.isError && <ErrorNote error={save.error} />}
+  </div>;
+}
 function localInput(v: string | Date) {
   return new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(v)).replace(' ', 'T');
 }
@@ -298,6 +313,7 @@ function SessionDetails({
               <option value="present">已出席</option>
               <option value="absent">缺席</option>
             </select>
+            <StudentFeedback key={s.booking_id} student={s} sessionId={session.id} />
           </div>
         ))
       ) : (

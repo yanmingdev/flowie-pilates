@@ -16,6 +16,8 @@ const History = lazy(() => import('./pages/History').then((m) => ({ default: m.H
 const Announcements = lazy(() => import('./pages/Announcements').then((m) => ({ default: m.Announcements })));
 const TeachingRecords = lazy(() => import('./pages/TeachingRecords').then((m) => ({ default: m.TeachingRecords })));
 const Manage = lazy(() => import('./pages/Manage').then((m) => ({ default: m.Manage })));
+const Teachers = lazy(() => import('./pages/Teachers').then((m) => ({ default: m.Teachers })));
+const MyCalendar = lazy(() => import('./pages/MyCalendar').then((m) => ({ default: m.MyCalendar })));
 const Calendar = lazy(() => import('./pages/Calendar').then((m) => ({ default: m.Calendar })));
 
 export function App() {
@@ -25,6 +27,8 @@ export function App() {
         <Route element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="classes" element={<Classes />} />
+          <Route path="teachers" element={<Teachers />} />
+          <Route path="my-calendar" element={<MyCalendar />} />
           <Route path="favorites" element={<Favorites />} />
           <Route path="history" element={<History />} />
           <Route path="announcements" element={<Announcements />} />

@@ -1,6 +1,6 @@
 # Flowie V1：啟動與 Supabase 設定
 
-本專案使用 React、Express 與既有的 Supabase V1 15 張資料表。此下載包已依原專案的 `supabase/.env` 帶入專案網址與 **publishable key**，並移到專案根目錄 `.env`。前端與後端會共用這份設定，不用再建立 `frontend/.env`。
+本專案使用 React、Express 與 Supabase V1 的 15 張原始資料表；執行 07 後增加一張身體知識內容表，共 16 張。根目錄 `.env` 已保留原專案的網址與 **publishable key**，前端與後端共用這份設定。
 
 `.env` 已由 `.gitignore` 排除。下載包仍包含您的 Supabase 專案網址與公開用 key，以及原始 03、04 SQL 中的帳號 UID；分享壓縮包或公開上傳 SQL 前，請確認內容。**不可將 secret key 或 service_role key 填入專案**；應使用 publishable key 或 anon key。
 
@@ -20,6 +20,10 @@ cd C:\flowie-studio
 npm ci
 npm run dev
 ```
+
+如果您的 Windows 環境先前需要使用系統憑證，在**同一個 PowerShell 視窗**於 `npm run dev` 前先執行 `$env:NODE_USE_SYSTEM_CA = "1"`。每次開啟新的 PowerShell 視窗都要重新設定；不要關閉 TLS 憑證驗證。
+
+本次修正已補回必要的 `backend/src/index.ts`。若解壓後仍看到 `Cannot find module ... src/index.ts`，請確認解壓路徑是 `C:\flowie-studio\backend\src\index.ts`，並確認沒有把壓縮檔解成雙層的 `flowie-studio\flowie-studio`。
 
 首次執行 `npm ci` 需要網路下載套件。下載包不含 `node_modules`，因此檔案較小；安裝完成後，電腦中仍會有執行與測試所需的套件。
 
@@ -44,13 +48,21 @@ SUPABASE_ANON_KEY=你的_publishable_或_anon_key
 
 ## 4. 資料庫 SQL
 
-本版沿用既有 V1 15 張表，程式啟動不會自動執行 SQL。依您先前的說明，01～04 已執行過，**不要重新執行 01～04**。
+本版以既有 V1 15 張表為基礎，執行 07 後共有 16 張。程式啟動不會自動執行 SQL。依您先前的說明，01～04 已執行過，**不要重新執行 01～04**。
 
 - 若 05 尚未執行：先審查 `supabase/v1_incremental/05_flowie_v1_api_and_transactions.sql`，執行成功後再執行 06。
 - 若 05 已成功執行：確認後執行 `supabase/v1_incremental/06_flowie_v1_report_session_count.sql`。若稍後重跑 05，需再執行 06。
 - 05、06 請在正確的 Supabase 專案中以 SQL Editor 手動執行；建議先在隔離測試專案驗證與備份。沒有存取您的 Supabase，無法代為確認是否已執行。
 
 舊 V1.2 檔案僅保留在 `legacy/v1_2/` 供查閱，不可套用到 V1 資料庫；也不要執行 `supabase db reset` 或 `supabase db push`。
+
+## 4A. 本次新增的 07 SQL 與介面更新
+
+本包包含 `supabase/v1_incremental/07_flowie_v1_knowledge_and_feedback.sql`。如果目前 Supabase 已執行 01～06 且尚未執行 07，請在正確專案 SQL Editor **只執行 07 一次**；已執行 07 就不要重跑。07 新增身體知識內容表 `knowledge_articles`、在既有 `bookings` 新增 `teacher_feedback`，以及老師／管理員寫入建議的受控函式與三筆知識示範資料。若是全新空白專案，順序為 01、02、選用 03／04、05、06、07；請先於測試專案驗證，再於正式專案執行。
+
+首頁已移除五格捷徑；頂部選單新增師資介紹與會員月曆。身體知識示意圖位於 `frontend/public/images/knowledge-*.svg`，可在 `knowledge_articles.image_url` 改成正式圖片網址。老師的課後建議會顯示在學生的上課紀錄。
+
+本壓縮包保留原本 `.git` 與根目錄 `.env`（僅含原本的 publishable key），排除可由 `npm ci` 重建的 `node_modules` 與可由 `npm run build` 產生的 `dist`。請勿把此包與舊專案交錯覆蓋：先備份舊資料夾，再解壓整包成 `C:\flowie-studio`。在新目錄執行 `npm ci` 後再啟動。Git 遠端連結雖已保留，上傳前仍需查看 `git status` 和待提交檔案，尤其是可能被追蹤的環境設定。
 
 ## 5. 功能及驗證
 
