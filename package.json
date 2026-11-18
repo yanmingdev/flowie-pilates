@@ -14,10 +14,17 @@
     "build": "npm run build -w backend && npm run build -w frontend",
     "typecheck": "npm run typecheck -w backend && npm run typecheck -w frontend",
     "lint": "eslint backend/src frontend/src",
-    "test": "npm run test -w backend && npm run test -w frontend && npm run test:db-smoke",
-    "test:db-smoke": "node scripts/test-v1-db.mjs",
-    "test:concurrency": "node scripts/test-v1-concurrency.mjs",
-    "test:postgrest": "node scripts/test-v1-http.mjs"
+    "test": "npm run test -w backend && npm run test -w frontend && npm run test:db-smoke && npm run test:db-install",
+    "test:db-smoke": "node tests/database/v1-smoke.mjs",
+    "test:concurrency": "node tests/database/v1-concurrency.mjs",
+    "test:postgrest": "node tests/integration/v1-http.mjs",
+    "assets:sync": "node scripts/assets/sync-legacy-assets.mjs",
+    "format": "prettier --write backend/src frontend/src config scripts tests",
+    "check:architecture": "npm run assets:sync && node scripts/quality/check-architecture.mjs",
+    "check": "npm run check:architecture && npm run typecheck && npm run lint && npm test && npm run build",
+    "test:db-install": "node tests/database/fresh-install.mjs",
+    "db:catalog": "node scripts/database/export-schema.mjs",
+    "db:er": "npm run db:catalog && node scripts/database/render-er.mjs"
   },
   "devDependencies": {
     "@electric-sql/pglite": "^0.5.16",

@@ -7,7 +7,9 @@
     "dev": "vite --host localhost",
     "build": "tsc --noEmit && vite build",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run --environment jsdom"
+    "test": "vitest run --config ../config/testing/vitest.frontend.ts",
+    "predev": "node ../scripts/assets/sync-legacy-assets.mjs",
+    "prebuild": "node ../scripts/assets/sync-legacy-assets.mjs"
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.17",

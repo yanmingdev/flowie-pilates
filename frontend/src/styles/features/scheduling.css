@@ -1,0 +1,40 @@
+.calendar-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.calendar-filters label {
+  flex: 1;
+  min-width: 110px;
+}
+.calendar-panel .fc {
+  font-size: 12px;
+  --fc-button-bg-color: #6b846e;
+  --fc-button-border-color: #6b846e;
+  --fc-button-hover-bg-color: #526d56;
+  --fc-button-hover-border-color: #526d56;
+  --fc-button-active-bg-color: #526d56;
+  --fc-button-active-border-color: #526d56;
+  --fc-border-color: #eee9e4;
+  --fc-today-bg-color: #f1f5ef;
+}
+.calendar-panel .fc-toolbar-title {
+  font-size: 20px;
+}
+.calendar-panel .fc-button {
+  font-size: 12px;
+}
+.roster-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+  font-size: 13px;
+}
+.roster-row select {
+  width: 130px;
+  min-height: 40px;
+}

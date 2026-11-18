@@ -1,0 +1,21 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> flowie-studio@1.2.0 check:architecture
+> npm run assets:sync && node scripts/quality/check-architecture.mjs
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> flowie-studio@1.2.0 assets:sync
+> node scripts/assets/sync-legacy-assets.mjs
+
+Assets: 11 compatible URLs synchronized.
+{
+  "files": 131,
+  "documented_functions": 674,
+  "sql_scripts": 7,
+  "api_routes": 68,
+  "asset_aliases": 11,
+  "er_public_tables": 16,
+  "er_foreign_keys": 17,
+  "issues": []
+}

@@ -1,0 +1,4 @@
+/* FullCalendar owns its own table layout; generic management-table sizing must not force page overflow. */
+.calendar-panel, .calendar-panel .fc { min-width:0; }
+.calendar-panel .fc table { min-width:0; }
+.calendar-panel .fc th, .calendar-panel .fc td { padding:0; max-width:none; overflow-wrap:normal; }

@@ -1,3 +1,4 @@
-import { app } from './app.js';
-import { env } from './config/env.js';
-app.listen(env.PORT, () => console.log(`Flowie API listening on ${env.PORT}`));
+import { startServer, registerShutdownHandlers } from './server.js';
+// CLI 唯一入口：Node 啟動 Express，資料表建立仍由人工審查 SQL 執行。
+const server = startServer();
+registerShutdownHandlers(server);

@@ -1,0 +1,377 @@
+@media (max-width: 1000px) {
+  .desktop-nav {
+    gap: 14px;
+  }
+  .topbar-inner {
+    gap: 16px;
+  }
+  .admin-layout {
+    grid-template-columns: 190px minmax(0, 1fr);
+  }
+  .filter-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 700px) {
+  body {
+    padding-bottom: calc(72px + env(safe-area-inset-bottom));
+  }
+  .page {
+    width: calc(100% - 32px);
+    padding: 20px 0 54px;
+  }
+  .topbar-inner {
+    height: 62px;
+    width: calc(100% - 32px);
+    justify-content: space-between;
+  }
+  .logo {
+    width: 112px;
+  }
+  .desktop-nav {
+    display: none;
+  }
+  .top-user span {
+    display: none;
+  }
+  .top-user {
+    border: 1px solid #ded8d0;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+  }
+  .top-actions select {
+    max-width: 135px;
+  }
+  .bottom-nav {
+    display: flex;
+    position: fixed;
+    z-index: 30;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 8px 5px calc(8px + env(safe-area-inset-bottom));
+    background: rgba(255, 255, 255, 0.97);
+    border-top: 1px solid #eee7df;
+    justify-content: space-around;
+    box-shadow: 0 -6px 25px rgba(70, 64, 57, 0.04);
+  }
+  .bottom-nav a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 48px;
+    color: #9b9992;
+    font-size: 10px;
+  }
+  .bottom-nav a.active {
+    color: #506d55;
+    font-weight: 700;
+  }
+  .footer {
+    padding: 25px 16px;
+    flex-direction: column;
+  }
+  .hero {
+    min-height: 340px;
+    border-radius: 17px;
+  }
+  .hero-content {
+    padding: 36px 28px;
+  }
+  .hero h1 {
+    font-size: 32px;
+  }
+  .hero p {
+    font-size: 13px;
+  }
+  .hero-orbit {
+    width: 270px;
+    height: 270px;
+    right: -35%;
+    top: 5%;
+  }
+  .orbit-two {
+    right: -42%;
+    top: 40%;
+  }
+  .hero-mark {
+    font-size: 65px;
+  }
+  .welcome-row {
+    padding: 42px 0 0;
+    display: block;
+  }
+  .welcome-row h2 {
+    font-size: 23px;
+  }
+  .balance-card {
+    width: 100%;
+    margin-top: 22px;
+  }
+  .content-section {
+    padding-top: 43px;
+  }
+  .section-heading h2 {
+    font-size: 22px;
+  }
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .class-card {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+  }
+  .class-art {
+    height: auto;
+    min-height: 210px;
+  }
+  .class-art:after {
+    width: 130px;
+    height: 130px;
+    right: -40%;
+    top: 30%;
+  }
+  .class-body {
+    padding: 16px;
+  }
+  .class-body h3 {
+    font-size: 16px;
+  }
+  .art-flower {
+    right: 14%;
+    top: 31%;
+    font-size: 46px;
+  }
+  .art-number {
+    font-size: 27px;
+  }
+  .art-label {
+    font-size: 8px;
+    left: 12px;
+  }
+  .teacher-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .teacher-art {
+    height: 150px;
+  }
+  .filter-panel {
+    padding: 18px;
+  }
+  .filter-grid {
+    gap: 12px;
+  }
+  .steps {
+    gap: 7px;
+  }
+  .step {
+    font-size: 11px;
+  }
+  .step:not(:last-child):after {
+    margin-left: 7px;
+  }
+  .modal-backdrop {
+    padding: 0;
+    align-items: flex-end;
+  }
+  .modal {
+    border-radius: 20px 20px 0 0;
+    max-height: 90dvh;
+    padding: 22px 18px calc(22px + env(safe-area-inset-bottom));
+  }
+  .booking-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .auth-page {
+    grid-template-columns: 1fr;
+  }
+  .auth-art {
+    display: none;
+  }
+  .auth-form {
+    padding: 48px 24px;
+    min-height: 100dvh;
+  }
+  .auth-logo {
+    margin-bottom: 55px;
+  }
+  .admin-layout {
+    display: block;
+    min-height: 0;
+  }
+  .sidebar {
+    padding: 16px;
+    border-right: 0;
+    border-bottom: 1px solid #e7e1da;
+  }
+  .sidebar h2,
+  .sidebar p,
+  .sidebar-caption,
+  .sidebar-back {
+    display: none;
+  }
+  .sidebar nav {
+    display: flex;
+    overflow-x: auto;
+    gap: 5px;
+    margin: 0;
+  }
+  .sidebar nav a {
+    white-space: nowrap;
+    padding: 9px 10px;
+  }
+  .admin-main {
+    padding: 28px 16px 60px;
+  }
+  .admin-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .admin-heading h1 {
+    font-size: 27px;
+  }
+  .stats-grid {
+    gap: 10px;
+  }
+  .stat-card {
+    padding: 15px;
+  }
+  .stat-card strong {
+    font-size: 26px;
+  }
+  .panel {
+    padding: 17px;
+  }
+  .calendar-panel .fc .fc-toolbar {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .calendar-panel .fc-toolbar-title {
+    font-size: 17px;
+  }
+  .calendar-panel .fc-button {
+    font-size: 11px;
+  }
+  .recent-row {
+    grid-template-columns: 40px 1fr;
+  }
+  .recent-row > span {
+    grid-column: 2;
+  }
+  .manage-toolbar > * {
+    width: 100%;
+  }
+  .student-row {
+    flex-direction: column;
+  }
+  .loading-grid {
+    grid-template-columns: 1fr;
+  }
+  .loading-grid div:not(:first-child) {
+    display: none;
+  }
+}
+@media (max-width: 360px) {
+  .filter-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-two {
+    grid-template-columns: 1fr;
+  }
+  .class-card {
+    grid-template-columns: 90px 1fr;
+  }
+  .class-meta {
+    gap: 6px;
+  }
+  .step:not(:last-child):after {
+    margin-left: 4px;
+  }
+  .step {
+    font-size: 10px;
+  }
+}
+
+.welcome-cards {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.next-card {
+  width: 240px;
+  background: #fff;
+  border: 1px solid #eae4de;
+  border-radius: 16px;
+  padding: 20px 24px;
+  position: relative;
+}
+.next-card span {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+  color: #617c65;
+}
+.next-card strong {
+  display: block;
+  margin: 12px 0 3px;
+  padding-right: 12px;
+}
+.next-card p {
+  font-size: 12px;
+}
+.next-card a {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+@media (max-width: 700px) {
+  .welcome-cards {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .welcome-cards .balance-card {
+    margin: 0;
+  }
+  .welcome-cards .balance-card,
+  .next-card {
+    width: auto;
+    min-width: 0;
+    padding: 17px;
+  }
+  .next-card strong {
+    font-size: 14px;
+  }
+  .welcome-cards .balance-card strong {
+    font-size: 27px;
+  }
+}
+@media (max-width: 360px) {
+  .welcome-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 18px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.pagination .button {
+  min-height: 38px;
+  padding: 8px 12px;
+}

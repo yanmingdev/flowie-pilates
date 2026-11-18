@@ -1,0 +1,178 @@
+[
+  {
+    "old": "frontend/src/pages/TeachingRecords.tsx",
+    "sha256": "58f01787b5f36fb03365e5d7d09bd40857dc1dcead8f64057be9caf6168005b4"
+  },
+  {
+    "old": "frontend/src/pages/Manage.tsx",
+    "sha256": "c92047fdf54283b7359c13e10244638a7e61097bc908cc0a91506cbae34fed13"
+  },
+  {
+    "old": "frontend/src/pages/Home.tsx",
+    "sha256": "c9a66a3dd879cc0c46ea6f278309d10be62d50446c2912b32da637e9dc17ecff"
+  },
+  {
+    "old": "frontend/src/pages/Account.tsx",
+    "sha256": "ed243f65bb618966cbdb9281acc6f4e1352094802ec66a232111098a373b8638"
+  },
+  {
+    "old": "frontend/src/pages/History.tsx",
+    "sha256": "6aa2bace3d4fe20cae0b77ccc56b11f80117f990721931da6fcdc5c7a87211c9"
+  },
+  {
+    "old": "frontend/src/pages/Classes.tsx",
+    "sha256": "8d85e15fea78c5f6d18b8b4f883f4c17048988af5c72b8365c0115fc5d710116"
+  },
+  {
+    "old": "frontend/src/pages/Calendar.tsx",
+    "sha256": "2b75bef494526b4bbf7a4dd87f9eb9bc9c456fca9469070625c750d29e6fc9eb"
+  },
+  {
+    "old": "frontend/src/pages/Auth.tsx",
+    "sha256": "7276290a765b17a49b0e93112b8236bd8b86469d899b992912e88b187e966897"
+  },
+  {
+    "old": "frontend/src/pages/Teachers.tsx",
+    "sha256": "35390127a680cb0b3bae6e653bbe3f73ab106030d3be1d9ea338a5f4fde2d2ca"
+  },
+  {
+    "old": "frontend/src/pages/manage-config.ts",
+    "sha256": "0c2108a4f17b953c14352a6f0feaf9731d8d84131f3d4060b100cd1e71391c02"
+  },
+  {
+    "old": "frontend/src/pages/AdminHome.tsx",
+    "sha256": "829332a818a5f9ad3af9911a81ed774ed34715b45439a19f7098a9dfd3ebfa51"
+  },
+  {
+    "old": "frontend/src/pages/Favorites.tsx",
+    "sha256": "eb9722c76eecc207bd5f067634fafa353c646ddcb7e49c0fc9f0bf612837b54e"
+  },
+  {
+    "old": "frontend/src/pages/MyCalendar.tsx",
+    "sha256": "98afc80b501ea77145257bcc8d0b2e3d1b4c2a2d7022497e80cfbbd515257ef3"
+  },
+  {
+    "old": "frontend/src/pages/Announcements.tsx",
+    "sha256": "10f05b619acb62cde39df223cf7acb391be082e9b837b4eed3b412007b352c7c"
+  },
+  {
+    "old": "frontend/src/components/Ui.tsx",
+    "sha256": "429dc65e5fad2131896564e1458d19ef774e8f54cc920e342bb7ef564e9279ab"
+  },
+  {
+    "old": "frontend/src/components/Layout.tsx",
+    "sha256": "4249ed9b82d1c7b7bd79bb83e3797ca4bc4c6ee9e0661798d33f682bdf90325a"
+  },
+  {
+    "old": "frontend/src/components/FavoriteButton.tsx",
+    "sha256": "8b3b049f18adb3e4f881c74992b3b048c94f8aa9de274ed1be309dec76c1f756"
+  },
+  {
+    "old": "frontend/src/components/ui/dialog.tsx",
+    "sha256": "a72ab65d323c98874a177c31ce7ac150e39583a6f20d4717a7987069907dbb0a"
+  },
+  {
+    "old": "frontend/src/components/ui/button.tsx",
+    "sha256": "4f8bbea67b3e1a1d9faa24fa6ad97de31495b20b8b5b3ab84aa1c32b8fb0cae1"
+  },
+  {
+    "old": "frontend/src/services/types.ts",
+    "sha256": "3e94e98e080afebd59df9384dae8eefc938f80405e973fe93323f8ab17901225"
+  },
+  {
+    "old": "frontend/src/services/favorites.ts",
+    "sha256": "a12ad6f7ce03d425463e46bdb795f407cc6243a5c27b82e8c339aa083764143e"
+  },
+  {
+    "old": "frontend/src/services/context.tsx",
+    "sha256": "3e4bae4396d300e77b80dc170883d29479480c4ad379bc3f338caa7c232122d8"
+  },
+  {
+    "old": "frontend/src/services/api.ts",
+    "sha256": "c7c179b5ac2318dcc8b82a259ffc1b1188b3d03cd1bda54f6e91982020dc5322"
+  },
+  {
+    "old": "frontend/src/services/supabase.ts",
+    "sha256": "717f4734b9b0bbf93fcdcefd0f03a68ac2ea7581e3418cc46ea2b0da352df558"
+  },
+  {
+    "old": "frontend/src/lib/utils.ts",
+    "sha256": "20b8ec86101119822ec51c5f5835e001d84120a01c19a4ea3f440b4018ca8643"
+  },
+  {
+    "old": "backend/src/controllers/resources.ts",
+    "sha256": "80d6b972fa33650fdcfff2d0d5ac584924ccd2d3292da27bc994d88e02d44c2e"
+  },
+  {
+    "old": "backend/src/middleware/errors.ts",
+    "sha256": "1a99041915c1b6dd38d51efbd041d656d9947456e5c55b362a13f211c8e6a195"
+  },
+  {
+    "old": "backend/src/middleware/auth.ts",
+    "sha256": "c792a18ef6e1783037cac31553b56948156d2933899fa5db0c28f349130a8cf8"
+  },
+  {
+    "old": "backend/src/repositories/database.ts",
+    "sha256": "b73366da470708af5a8bfaf59aa8a44f9e29fc5b401f5d4df3bbfb3a0ae30bca"
+  },
+  {
+    "old": "backend/src/validators/resources.ts",
+    "sha256": "9464e74048b7c15df22351d79fcb402a22a8e37c284177a6dac81b439c782285"
+  },
+  {
+    "old": "backend/src/routes/index.ts",
+    "sha256": "f6a9f436a8347caba8b7f0a29d2c8ed8b1468ae274cde93e348cf4db4e3983fd"
+  },
+  {
+    "old": "backend/tests/env.test.ts",
+    "sha256": "1644f0b85494d05b495649cb0049e15fe374f45ee8bfea9cf73a94df852003c7"
+  },
+  {
+    "old": "backend/tests/api.test.ts",
+    "sha256": "ee4d3f31788317c8ce76db94bedcd1bae2d66827f237994504244aff6575c7c9"
+  },
+  {
+    "old": "frontend/tests/routes.test.tsx",
+    "sha256": "0109ff167b152ce89a08f763a88f67108eec6f595a3c61b73f5edc1ff711bd4f"
+  },
+  {
+    "old": "frontend/tests/home.test.tsx",
+    "sha256": "ac4ae248df64dfd95ca0d1769c3270862739f97225447423348927a33eecd1f8"
+  },
+  {
+    "old": "frontend/src/routes.tsx",
+    "sha256": "44a0b5c4c7de77e10505c2f4eef7a5d9c6bce6ba0f89af454914a4da9a22cde6"
+  },
+  {
+    "old": "frontend/src/styles/main.css",
+    "sha256": "bab47e954093c72b75deadfd2265c8582377734b11d5b88ec6657dced22be7bf"
+  },
+  {
+    "old": "backend/src/app.ts",
+    "sha256": "b0858691f8447febbfa307d224f46077b55c134a03b667fad3f54f7fdd024cb6"
+  },
+  {
+    "old": "backend/src/config/supabase.ts",
+    "sha256": "cd5563b3b7672031936ae76f20efaec982e4fceca25fd456118a31e8e4ebba25"
+  },
+  {
+    "old": "backend/src/openapi.ts",
+    "sha256": "9dda10da9074db2c640c22d8923ab6f570ab22b1d4e6df459b179ee22d05132f"
+  },
+  {
+    "old": ".prettierrc.json",
+    "sha256": "4faabb1226e033a6b6718eee7d13e463b746e4f863424db1a7d197997f932f26"
+  },
+  {
+    "old": "scripts/test-v1-db.mjs",
+    "sha256": "2bbd55e6c6aea72d3720b3b3c50d9135f2538f23720bf322680cbfee28ef2697"
+  },
+  {
+    "old": "scripts/test-v1-http.mjs",
+    "sha256": "bf5b1098f2ef26a156033616dc36885e8fa99edb9f9d8835244aed9f3a30797c"
+  },
+  {
+    "old": "scripts/test-v1-concurrency.mjs",
+    "sha256": "e84617f3599a37b710d7df30a72dc7ee5e9ef38b7fa65b885646aaf3aee079b8"
+  }
+]

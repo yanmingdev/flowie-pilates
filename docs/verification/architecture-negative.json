@@ -1,0 +1,12 @@
+[
+  {
+    "fixture": ".prettierrc.json",
+    "detected": "obsolete duplicate: .prettierrc.json",
+    "passed": true
+  },
+  {
+    "fixture": "frontend/src/shared/probe.ts",
+    "detected": "shared imports upper layer",
+    "passed": true
+  }
+]

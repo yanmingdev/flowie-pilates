@@ -1,0 +1,58 @@
+[
+  {
+    "path": "frontend/public/assets/images/home/flowie-hero.png",
+    "width": 1672,
+    "height": 941,
+    "format": "PNG",
+    "sha256": "d8a7fae6a6517e1c0f48f50c3fd3b06b6ee1f8cacd276530e3b95af571c3f6b5"
+  },
+  {
+    "path": "frontend/public/assets/images/courses/flowie-course.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "PNG",
+    "sha256": "b15357d7bb42583f0fbfbc66b350886e73ff83569fc3e0a66876fa049a2982e1"
+  },
+  {
+    "path": "frontend/public/assets/images/knowledge/knowledge-cat-cow.png",
+    "width": 400,
+    "height": 220,
+    "format": "PNG",
+    "sha256": "1b0ee28f52b5871b77e9b09d486a933fc81e402a48031c9d1a8d574a5d7c2619"
+  },
+  {
+    "path": "frontend/public/assets/images/knowledge/knowledge-bridge.png",
+    "width": 400,
+    "height": 220,
+    "format": "PNG",
+    "sha256": "1b7b5dc2381519106aba22401bf45399e35929bc20964d391537fb678b978f40"
+  },
+  {
+    "path": "frontend/public/assets/images/knowledge/knowledge-side-leg.png",
+    "width": 400,
+    "height": 220,
+    "format": "PNG",
+    "sha256": "e1c6975db3671813197b86a214384b7dafe6f4c9b09206fc0fbcdbaae25a4a4c"
+  },
+  {
+    "path": "frontend/public/assets/icons/pwa/icon-512.png",
+    "width": 512,
+    "height": 512,
+    "format": "PNG",
+    "sha256": "6546bd74adf94f7512b8e3da587d8e30e4e5739c599779737ce21354a5f30431"
+  },
+  {
+    "path": "frontend/public/assets/icons/pwa/icon-192.png",
+    "width": 192,
+    "height": 192,
+    "format": "PNG",
+    "sha256": "0ade17b2ae8f370376ad40fd2a2f7dfe2dd48df81efc99a2ebe2007e96cdaa05"
+  },
+  {
+    "path": "frontend/public/assets/icons/pwa/maskable-512.png",
+    "width": 512,
+    "height": 512,
+    "format": "PNG",
+    "sha256": "914648e8eacf3c6f240d5a2eb92db4628efbf4fcadde6d6a739e5ed53f6871db"
+  }
+]

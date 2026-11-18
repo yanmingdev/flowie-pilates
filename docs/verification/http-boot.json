@@ -1,0 +1,30 @@
+{
+  "checks": [
+    {
+      "url": "http://localhost:3001/api/v1/health",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8"
+    },
+    {
+      "url": "http://localhost:3001/api/openapi.json",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8"
+    },
+    {
+      "url": "http://localhost:5173/",
+      "status": 200,
+      "contentType": "text/html"
+    },
+    {
+      "url": "http://localhost:5173/src/main.tsx",
+      "status": 200,
+      "contentType": "text/javascript"
+    },
+    {
+      "url": "http://localhost:5173/src/app/providers/AppProviders.tsx",
+      "status": 200,
+      "contentType": "text/javascript"
+    }
+  ],
+  "browser": "Chromium launch unavailable: environment socket EPERM; no visual validation claimed"
+}

@@ -1,0 +1,145 @@
+.home-page {
+  padding-top: 24px;
+}
+.hero {
+  background: #859a87;
+  min-height: 380px;
+  border-radius: 22px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  background-position: center;
+  background-size: cover;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 550px;
+  padding: 52px clamp(30px, 6vw, 76px);
+}
+.hero-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.9;
+}
+.hero-label span {
+  height: 1px;
+  width: 24px;
+  background: #fff;
+}
+.hero h1 {
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.35;
+  margin: 20px 0 12px;
+  letter-spacing: 0.04em;
+}
+.hero p {
+  font-size: 15px;
+  opacity: 0.93;
+  margin-bottom: 30px;
+}
+.hero-orbit {
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0.23);
+  border-radius: 50%;
+  width: 400px;
+  height: 400px;
+  right: 10%;
+  top: -4%;
+}
+.orbit-two {
+  width: 360px;
+  height: 360px;
+  right: 2%;
+  top: 26%;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+.hero-mark {
+  position: absolute;
+  right: 6%;
+  bottom: 15px;
+  font-size: 90px;
+  letter-spacing: -10px;
+  opacity: 0.12;
+  font-weight: 700;
+}
+.welcome-row {
+  padding: 58px 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+}
+.welcome-row h2 {
+  font-size: 26px;
+  margin: 10px 0;
+}
+.welcome-row p {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+.balance-card {
+  background: #e6ebe4;
+  border: 1px solid #dbe4d9;
+  border-radius: 16px;
+  padding: 20px 24px;
+  width: 310px;
+  position: relative;
+  flex: none;
+}
+.balance-card > span,
+.credit-card span {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+  color: #617c65;
+}
+.balance-card strong {
+  display: block;
+  font-size: 31px;
+  margin-top: 5px;
+  color: #4c6852;
+}
+.balance-card strong small {
+  font-size: 13px;
+}
+.balance-card p {
+  font-size: 12px;
+}
+.balance-card a {
+  position: absolute;
+  right: 21px;
+  top: 20px;
+}
+.content-section {
+  padding-top: 62px;
+}
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 15px;
+  margin-bottom: 22px;
+}
+.section-heading h2 {
+  font-size: 25px;
+  margin: 9px 0 6px;
+}
+.section-heading p {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.section-heading.compact {
+  margin: 0 0 20px;
+}
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}

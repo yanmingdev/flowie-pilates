@@ -1,0 +1,93 @@
+.booking-card {
+  background: #fff;
+  border: 1px solid #ebe5df;
+  border-radius: 15px;
+  padding: 22px;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  align-items: center;
+}
+.booking-card h3 {
+  margin: 7px 0;
+  font-size: 18px;
+}
+.booking-card p,
+.booking-card small {
+  font-size: 12px;
+  color: #817a73;
+}
+.booking-card small {
+  display: block;
+  margin-top: 12px;
+  overflow-wrap: anywhere;
+}
+.credit-card {
+  background: #dfe9df;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.credit-card h2 {
+  font-size: 20px;
+  margin: 10px 0;
+}
+.credit-card p {
+  font-size: 12px;
+  color: #6c796c;
+}
+.credit-card > strong {
+  font-size: 35px;
+  white-space: nowrap;
+  color: #4b6b51;
+}
+.credit-card > strong small {
+  font-size: 13px;
+}
+.ledger-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid #f1ede9;
+  font-size: 13px;
+}
+.ledger-row:last-child {
+  border: 0;
+}
+.ledger-row p {
+  font-size: 11px;
+  color: #8d857d;
+}
+.positive {
+  color: #577d5d;
+}
+.form-stack {
+  display: grid;
+  gap: 14px;
+}
+.form-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.check-label {
+  flex-direction: row;
+  align-items: center;
+  gap: 9px;
+}
+.check-label input {
+  width: 18px;
+  min-height: 18px;
+  height: 18px;
+}
+.account-password {
+  margin-top: 18px;
+}
+.account-links {
+  margin-bottom: 30px;
+}

@@ -1,0 +1,28 @@
+:root {
+  font-family: 'Nunito', 'Noto Sans TC', system-ui, sans-serif;
+  color: #514a45;
+  background: #f7f3ee;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --color-primary: #849a86;
+  --color-background: #f7f3ee;
+  --color-accent: #e9cfc9;
+  --color-text-primary: #514a45;
+  --color-surface: #ffffff;
+  --color-surface-muted: #e6ebe4;
+  --primary: #849a86;
+  --primary-hover: #506a54;
+  --primary-active: #405a44;
+  --background: #f7f3ee;
+  --surface: #fff;
+  --text: #514a45;
+  --text-secondary: #756e68;
+  --border: #e5ded7;
+  --success: #446d50;
+  --warning: #8d641c;
+  --error: #a64640;
+  --disabled: #aaa6a0;
+  --muted: #e6ebe4;
+  --pink: #e9cfc9;
+  --shadow: 0 12px 32px rgba(70, 64, 57, 0.06);
+}

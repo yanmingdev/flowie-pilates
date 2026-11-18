@@ -1,0 +1,27 @@
+{
+  "schema_version": "Flowie V1 + 07",
+  "expected_public_tables": 16,
+  "fresh_install_order": [
+    "01_Flowie_建立資料表.sql",
+    "02_Flowie_新增示範資料.sql",
+    "03_Flowie_指定第一位管理員.sql",
+    "04_Flowie_建立示範老師與場次.sql",
+    "05_flowie_v1_api_and_transactions.sql",
+    "06_flowie_v1_report_session_count.sql",
+    "07_flowie_v1_knowledge_and_feedback.sql"
+  ],
+  "optional": [
+    "03_Flowie_指定第一位管理員.sql",
+    "04_Flowie_建立示範老師與場次.sql"
+  ],
+  "schema_sources": [
+    "01_Flowie_建立資料表.sql",
+    "05_flowie_v1_api_and_transactions.sql",
+    "06_flowie_v1_report_session_count.sql",
+    "07_flowie_v1_knowledge_and_feedback.sql"
+  ],
+  "auth_placeholders": {
+    "03_Flowie_指定第一位管理員.sql": "REPLACE_WITH_EXISTING_ADMIN_AUTH_UID",
+    "04_Flowie_建立示範老師與場次.sql": "REPLACE_WITH_EXISTING_TEACHER_AUTH_UID"
+  }
+}

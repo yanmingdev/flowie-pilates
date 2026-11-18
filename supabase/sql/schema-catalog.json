@@ -1,0 +1,3800 @@
+{
+  "model": "Flowie V1 + 07",
+  "generated_from": "Executed SQL in isolated PGlite; not production Supabase",
+  "public_table_count": 16,
+  "external_entities": [
+    {
+      "schema": "auth",
+      "name": "users",
+      "columns": [
+        {
+          "column_name": "id",
+          "pg_type": "uuid",
+          "not_null": true
+        }
+      ],
+      "note": "Supabase Auth managed; only referenced primary key is shown."
+    }
+  ],
+  "tables": [
+    {
+      "table_schema": "public",
+      "table_name": "announcements"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "bookings"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "branches"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "class_sessions"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "course_categories"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "course_favorites"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "course_packages"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "courses"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "credit_ledger"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "homepage_sections"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "knowledge_articles"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "profiles"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "rooms"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "site_settings"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "student_packages"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "teachers"
+    }
+  ],
+  "columns": [
+    {
+      "table_name": "announcements",
+      "column_name": "id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 1,
+      "default_value": "gen_random_uuid()"
+    },
+    {
+      "table_name": "announcements",
+      "column_name": "title",
+      "pg_type": "text",
+      "not_null": true,
+      "ordinal": 2,
+      "default_value": null
+    },
+    {
+      "table_name": "announcements",
+      "column_name": "content",
+      "pg_type": "text",
+      "not_null": true,
+      "ordinal": 3,
+      "default_value": null
+    },
+    {
+      "table_name": "announcements",
+      "column_name": "starts_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": false,
+      "ordinal": 4,
+      "default_value": null
+    },
+    {
+      "table_name": "announcements",
+      "column_name": "ends_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": false,
+      "ordinal": 5,
+      "default_value": null
+    },
+    {
+      "table_name": "announcements",
+      "column_name": "is_active",
+      "pg_type": "boolean",
+      "not_null": true,
+      "ordinal": 6,
+      "default_value": "true"
+    },
+    {
+      "table_name": "announcements",
+      "column_name": "created_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 7,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "announcements",
+      "column_name": "updated_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 8,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "bookings",
+      "column_name": "id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 1,
+      "default_value": "gen_random_uuid()"
+    },
+    {
+      "table_name": "bookings",
+      "column_name": "session_id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 2,
+      "default_value": null
+    },
+    {
+      "table_name": "bookings",
+      "column_name": "student_id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 3,
+      "default_value": null
+    },
+    {
+      "table_name": "bookings",
+      "column_name": "status",
+      "pg_type": "text",
+      "not_null": true,
+      "ordinal": 4,
+      "default_value": "'confirmed'::text"
+    },
+    {
+      "table_name": "bookings",
+      "column_name": "attendance_status",
+      "pg_type": "text",
+      "not_null": true,
+      "ordinal": 5,
+      "default_value": "'unconfirmed'::text"
+    },
+    {
+      "table_name": "bookings",
+      "column_name": "attendance_marked_by",
+      "pg_type": "uuid",
+      "not_null": false,
+      "ordinal": 6,
+      "default_value": null
+    },
+    {
+      "table_name": "bookings",
+      "column_name": "attendance_marked_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": false,
+      "ordinal": 7,
+      "default_value": null
+    },
+    {
+      "table_name": "bookings",
+      "column_name": "cancellation_deadline_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 8,
+      "default_value": null
+    },
+    {
+      "table_name": "bookings",
+      "column_name": "cancelled_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": false,
+      "ordinal": 9,
+      "default_value": null
+    },
+    {
+      "table_name": "bookings",
+      "column_name": "created_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 10,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "bookings",
+      "column_name": "updated_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 11,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "bookings",
+      "column_name": "teacher_feedback",
+      "pg_type": "text",
+      "not_null": false,
+      "ordinal": 12,
+      "default_value": null
+    },
+    {
+      "table_name": "branches",
+      "column_name": "id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 1,
+      "default_value": "gen_random_uuid()"
+    },
+    {
+      "table_name": "branches",
+      "column_name": "name",
+      "pg_type": "text",
+      "not_null": true,
+      "ordinal": 2,
+      "default_value": null
+    },
+    {
+      "table_name": "branches",
+      "column_name": "address",
+      "pg_type": "text",
+      "not_null": false,
+      "ordinal": 3,
+      "default_value": null
+    },
+    {
+      "table_name": "branches",
+      "column_name": "is_active",
+      "pg_type": "boolean",
+      "not_null": true,
+      "ordinal": 4,
+      "default_value": "true"
+    },
+    {
+      "table_name": "branches",
+      "column_name": "created_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 5,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "branches",
+      "column_name": "updated_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 6,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "class_sessions",
+      "column_name": "id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 1,
+      "default_value": "gen_random_uuid()"
+    },
+    {
+      "table_name": "class_sessions",
+      "column_name": "room_id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 2,
+      "default_value": null
+    },
+    {
+      "table_name": "class_sessions",
+      "column_name": "course_id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 3,
+      "default_value": null
+    },
+    {
+      "table_name": "class_sessions",
+      "column_name": "teacher_id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 4,
+      "default_value": null
+    },
+    {
+      "table_name": "class_sessions",
+      "column_name": "starts_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 5,
+      "default_value": null
+    },
+    {
+      "table_name": "class_sessions",
+      "column_name": "ends_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 6,
+      "default_value": null
+    },
+    {
+      "table_name": "class_sessions",
+      "column_name": "capacity",
+      "pg_type": "integer",
+      "not_null": true,
+      "ordinal": 7,
+      "default_value": null
+    },
+    {
+      "table_name": "class_sessions",
+      "column_name": "booking_opens_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 8,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "class_sessions",
+      "column_name": "booking_closes_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": false,
+      "ordinal": 9,
+      "default_value": null
+    },
+    {
+      "table_name": "class_sessions",
+      "column_name": "cancellation_deadline_override_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": false,
+      "ordinal": 10,
+      "default_value": null
+    },
+    {
+      "table_name": "class_sessions",
+      "column_name": "status",
+      "pg_type": "text",
+      "not_null": true,
+      "ordinal": 11,
+      "default_value": "'scheduled'::text"
+    },
+    {
+      "table_name": "class_sessions",
+      "column_name": "series_id",
+      "pg_type": "uuid",
+      "not_null": false,
+      "ordinal": 12,
+      "default_value": null
+    },
+    {
+      "table_name": "class_sessions",
+      "column_name": "created_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 13,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "class_sessions",
+      "column_name": "updated_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 14,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "course_categories",
+      "column_name": "id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 1,
+      "default_value": "gen_random_uuid()"
+    },
+    {
+      "table_name": "course_categories",
+      "column_name": "name",
+      "pg_type": "text",
+      "not_null": true,
+      "ordinal": 2,
+      "default_value": null
+    },
+    {
+      "table_name": "course_categories",
+      "column_name": "sort_order",
+      "pg_type": "integer",
+      "not_null": true,
+      "ordinal": 3,
+      "default_value": "0"
+    },
+    {
+      "table_name": "course_categories",
+      "column_name": "is_active",
+      "pg_type": "boolean",
+      "not_null": true,
+      "ordinal": 4,
+      "default_value": "true"
+    },
+    {
+      "table_name": "course_categories",
+      "column_name": "created_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 5,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "course_categories",
+      "column_name": "updated_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 6,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "course_favorites",
+      "column_name": "student_id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 1,
+      "default_value": null
+    },
+    {
+      "table_name": "course_favorites",
+      "column_name": "course_id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 2,
+      "default_value": null
+    },
+    {
+      "table_name": "course_favorites",
+      "column_name": "created_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 3,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "course_packages",
+      "column_name": "id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 1,
+      "default_value": "gen_random_uuid()"
+    },
+    {
+      "table_name": "course_packages",
+      "column_name": "name",
+      "pg_type": "text",
+      "not_null": true,
+      "ordinal": 2,
+      "default_value": null
+    },
+    {
+      "table_name": "course_packages",
+      "column_name": "total_credits",
+      "pg_type": "integer",
+      "not_null": true,
+      "ordinal": 3,
+      "default_value": null
+    },
+    {
+      "table_name": "course_packages",
+      "column_name": "validity_days",
+      "pg_type": "integer",
+      "not_null": true,
+      "ordinal": 4,
+      "default_value": null
+    },
+    {
+      "table_name": "course_packages",
+      "column_name": "is_active",
+      "pg_type": "boolean",
+      "not_null": true,
+      "ordinal": 5,
+      "default_value": "true"
+    },
+    {
+      "table_name": "course_packages",
+      "column_name": "created_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 6,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "course_packages",
+      "column_name": "updated_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 7,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "courses",
+      "column_name": "id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 1,
+      "default_value": "gen_random_uuid()"
+    },
+    {
+      "table_name": "courses",
+      "column_name": "category_id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 2,
+      "default_value": null
+    },
+    {
+      "table_name": "courses",
+      "column_name": "name",
+      "pg_type": "text",
+      "not_null": true,
+      "ordinal": 3,
+      "default_value": null
+    },
+    {
+      "table_name": "courses",
+      "column_name": "description",
+      "pg_type": "text",
+      "not_null": false,
+      "ordinal": 4,
+      "default_value": null
+    },
+    {
+      "table_name": "courses",
+      "column_name": "image_url",
+      "pg_type": "text",
+      "not_null": false,
+      "ordinal": 5,
+      "default_value": null
+    },
+    {
+      "table_name": "courses",
+      "column_name": "default_duration_minutes",
+      "pg_type": "integer",
+      "not_null": true,
+      "ordinal": 6,
+      "default_value": null
+    },
+    {
+      "table_name": "courses",
+      "column_name": "difficulty",
+      "pg_type": "text",
+      "not_null": true,
+      "ordinal": 7,
+      "default_value": null
+    },
+    {
+      "table_name": "courses",
+      "column_name": "credit_cost",
+      "pg_type": "integer",
+      "not_null": true,
+      "ordinal": 8,
+      "default_value": null
+    },
+    {
+      "table_name": "courses",
+      "column_name": "is_active",
+      "pg_type": "boolean",
+      "not_null": true,
+      "ordinal": 9,
+      "default_value": "true"
+    },
+    {
+      "table_name": "courses",
+      "column_name": "created_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 10,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "courses",
+      "column_name": "updated_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 11,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "credit_ledger",
+      "column_name": "id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 1,
+      "default_value": "gen_random_uuid()"
+    },
+    {
+      "table_name": "credit_ledger",
+      "column_name": "student_package_id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 2,
+      "default_value": null
+    },
+    {
+      "table_name": "credit_ledger",
+      "column_name": "booking_id",
+      "pg_type": "uuid",
+      "not_null": false,
+      "ordinal": 3,
+      "default_value": null
+    },
+    {
+      "table_name": "credit_ledger",
+      "column_name": "entry_type",
+      "pg_type": "text",
+      "not_null": true,
+      "ordinal": 4,
+      "default_value": null
+    },
+    {
+      "table_name": "credit_ledger",
+      "column_name": "delta",
+      "pg_type": "integer",
+      "not_null": true,
+      "ordinal": 5,
+      "default_value": null
+    },
+    {
+      "table_name": "credit_ledger",
+      "column_name": "operator_id",
+      "pg_type": "uuid",
+      "not_null": false,
+      "ordinal": 6,
+      "default_value": null
+    },
+    {
+      "table_name": "credit_ledger",
+      "column_name": "idempotency_key",
+      "pg_type": "text",
+      "not_null": true,
+      "ordinal": 7,
+      "default_value": null
+    },
+    {
+      "table_name": "credit_ledger",
+      "column_name": "note",
+      "pg_type": "text",
+      "not_null": false,
+      "ordinal": 8,
+      "default_value": null
+    },
+    {
+      "table_name": "credit_ledger",
+      "column_name": "created_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 9,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "homepage_sections",
+      "column_name": "section_type",
+      "pg_type": "text",
+      "not_null": true,
+      "ordinal": 1,
+      "default_value": null
+    },
+    {
+      "table_name": "homepage_sections",
+      "column_name": "title",
+      "pg_type": "text",
+      "not_null": false,
+      "ordinal": 2,
+      "default_value": null
+    },
+    {
+      "table_name": "homepage_sections",
+      "column_name": "subtitle",
+      "pg_type": "text",
+      "not_null": false,
+      "ordinal": 3,
+      "default_value": null
+    },
+    {
+      "table_name": "homepage_sections",
+      "column_name": "image_url",
+      "pg_type": "text",
+      "not_null": false,
+      "ordinal": 4,
+      "default_value": null
+    },
+    {
+      "table_name": "homepage_sections",
+      "column_name": "link_url",
+      "pg_type": "text",
+      "not_null": false,
+      "ordinal": 5,
+      "default_value": null
+    },
+    {
+      "table_name": "homepage_sections",
+      "column_name": "sort_order",
+      "pg_type": "integer",
+      "not_null": true,
+      "ordinal": 6,
+      "default_value": "0"
+    },
+    {
+      "table_name": "homepage_sections",
+      "column_name": "is_active",
+      "pg_type": "boolean",
+      "not_null": true,
+      "ordinal": 7,
+      "default_value": "true"
+    },
+    {
+      "table_name": "homepage_sections",
+      "column_name": "updated_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 8,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "knowledge_articles",
+      "column_name": "id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 1,
+      "default_value": "gen_random_uuid()"
+    },
+    {
+      "table_name": "knowledge_articles",
+      "column_name": "title",
+      "pg_type": "text",
+      "not_null": true,
+      "ordinal": 2,
+      "default_value": null
+    },
+    {
+      "table_name": "knowledge_articles",
+      "column_name": "body_area",
+      "pg_type": "text",
+      "not_null": true,
+      "ordinal": 3,
+      "default_value": null
+    },
+    {
+      "table_name": "knowledge_articles",
+      "column_name": "summary",
+      "pg_type": "text",
+      "not_null": true,
+      "ordinal": 4,
+      "default_value": null
+    },
+    {
+      "table_name": "knowledge_articles",
+      "column_name": "image_url",
+      "pg_type": "text",
+      "not_null": true,
+      "ordinal": 5,
+      "default_value": null
+    },
+    {
+      "table_name": "knowledge_articles",
+      "column_name": "sort_order",
+      "pg_type": "integer",
+      "not_null": true,
+      "ordinal": 6,
+      "default_value": "0"
+    },
+    {
+      "table_name": "knowledge_articles",
+      "column_name": "is_active",
+      "pg_type": "boolean",
+      "not_null": true,
+      "ordinal": 7,
+      "default_value": "true"
+    },
+    {
+      "table_name": "knowledge_articles",
+      "column_name": "created_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 8,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "knowledge_articles",
+      "column_name": "updated_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 9,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 1,
+      "default_value": null
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "display_name",
+      "pg_type": "text",
+      "not_null": false,
+      "ordinal": 2,
+      "default_value": null
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "is_admin",
+      "pg_type": "boolean",
+      "not_null": true,
+      "ordinal": 3,
+      "default_value": "false"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "is_active",
+      "pg_type": "boolean",
+      "not_null": true,
+      "ordinal": 4,
+      "default_value": "true"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "created_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 5,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "updated_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 6,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "rooms",
+      "column_name": "id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 1,
+      "default_value": "gen_random_uuid()"
+    },
+    {
+      "table_name": "rooms",
+      "column_name": "branch_id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 2,
+      "default_value": null
+    },
+    {
+      "table_name": "rooms",
+      "column_name": "name",
+      "pg_type": "text",
+      "not_null": true,
+      "ordinal": 3,
+      "default_value": null
+    },
+    {
+      "table_name": "rooms",
+      "column_name": "capacity",
+      "pg_type": "integer",
+      "not_null": true,
+      "ordinal": 4,
+      "default_value": null
+    },
+    {
+      "table_name": "rooms",
+      "column_name": "is_active",
+      "pg_type": "boolean",
+      "not_null": true,
+      "ordinal": 5,
+      "default_value": "true"
+    },
+    {
+      "table_name": "rooms",
+      "column_name": "created_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 6,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "rooms",
+      "column_name": "updated_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 7,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "site_settings",
+      "column_name": "id",
+      "pg_type": "smallint",
+      "not_null": true,
+      "ordinal": 1,
+      "default_value": "1"
+    },
+    {
+      "table_name": "site_settings",
+      "column_name": "brand_name",
+      "pg_type": "text",
+      "not_null": true,
+      "ordinal": 2,
+      "default_value": null
+    },
+    {
+      "table_name": "site_settings",
+      "column_name": "logo_url",
+      "pg_type": "text",
+      "not_null": false,
+      "ordinal": 3,
+      "default_value": null
+    },
+    {
+      "table_name": "site_settings",
+      "column_name": "brand_tagline",
+      "pg_type": "text",
+      "not_null": false,
+      "ordinal": 4,
+      "default_value": null
+    },
+    {
+      "table_name": "site_settings",
+      "column_name": "contact_email",
+      "pg_type": "text",
+      "not_null": false,
+      "ordinal": 5,
+      "default_value": null
+    },
+    {
+      "table_name": "site_settings",
+      "column_name": "contact_phone",
+      "pg_type": "text",
+      "not_null": false,
+      "ordinal": 6,
+      "default_value": null
+    },
+    {
+      "table_name": "site_settings",
+      "column_name": "cancellation_hours",
+      "pg_type": "integer",
+      "not_null": true,
+      "ordinal": 7,
+      "default_value": "12"
+    },
+    {
+      "table_name": "site_settings",
+      "column_name": "updated_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 8,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "student_packages",
+      "column_name": "id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 1,
+      "default_value": "gen_random_uuid()"
+    },
+    {
+      "table_name": "student_packages",
+      "column_name": "student_id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 2,
+      "default_value": null
+    },
+    {
+      "table_name": "student_packages",
+      "column_name": "package_id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 3,
+      "default_value": null
+    },
+    {
+      "table_name": "student_packages",
+      "column_name": "starts_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 4,
+      "default_value": null
+    },
+    {
+      "table_name": "student_packages",
+      "column_name": "expires_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 5,
+      "default_value": null
+    },
+    {
+      "table_name": "student_packages",
+      "column_name": "is_active",
+      "pg_type": "boolean",
+      "not_null": true,
+      "ordinal": 6,
+      "default_value": "true"
+    },
+    {
+      "table_name": "student_packages",
+      "column_name": "created_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 7,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "teachers",
+      "column_name": "id",
+      "pg_type": "uuid",
+      "not_null": true,
+      "ordinal": 1,
+      "default_value": null
+    },
+    {
+      "table_name": "teachers",
+      "column_name": "photo_url",
+      "pg_type": "text",
+      "not_null": false,
+      "ordinal": 2,
+      "default_value": null
+    },
+    {
+      "table_name": "teachers",
+      "column_name": "is_active",
+      "pg_type": "boolean",
+      "not_null": true,
+      "ordinal": 3,
+      "default_value": "true"
+    },
+    {
+      "table_name": "teachers",
+      "column_name": "created_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 4,
+      "default_value": "now()"
+    },
+    {
+      "table_name": "teachers",
+      "column_name": "updated_at",
+      "pg_type": "timestamp with time zone",
+      "not_null": true,
+      "ordinal": 5,
+      "default_value": "now()"
+    }
+  ],
+  "constraints": [
+    {
+      "name": "announcements_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "announcements",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "starts_at",
+        "ends_at"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK (((starts_at IS NULL) OR (ends_at IS NULL) OR (ends_at > starts_at)))"
+    },
+    {
+      "name": "announcements_content_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "announcements",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "content"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((btrim(content) <> ''::text))"
+    },
+    {
+      "name": "announcements_content_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "announcements",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "content"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL content"
+    },
+    {
+      "name": "announcements_created_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "announcements",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "created_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "name": "announcements_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "announcements",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL id"
+    },
+    {
+      "name": "announcements_is_active_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "announcements",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "is_active"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL is_active"
+    },
+    {
+      "name": "announcements_pkey",
+      "kind": "p",
+      "schema": "public",
+      "table_name": "announcements",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "name": "announcements_title_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "announcements",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "title"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((btrim(title) <> ''::text))"
+    },
+    {
+      "name": "announcements_title_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "announcements",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "title"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL title"
+    },
+    {
+      "name": "announcements_updated_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "announcements",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "updated_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL updated_at"
+    },
+    {
+      "name": "bookings_attendance_marked_by_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "bookings",
+      "referenced_schema": "public",
+      "referenced_table": "profiles",
+      "columns": [
+        "attendance_marked_by"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (attendance_marked_by) REFERENCES profiles(id)"
+    },
+    {
+      "name": "bookings_attendance_status_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "bookings",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "attendance_status"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((attendance_status = ANY (ARRAY['unconfirmed'::text, 'present'::text, 'absent'::text])))"
+    },
+    {
+      "name": "bookings_attendance_status_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "bookings",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "attendance_status"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL attendance_status"
+    },
+    {
+      "name": "bookings_cancellation_deadline_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "bookings",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "cancellation_deadline_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL cancellation_deadline_at"
+    },
+    {
+      "name": "bookings_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "bookings",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "attendance_marked_by",
+        "attendance_marked_at"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK (((attendance_marked_by IS NULL) = (attendance_marked_at IS NULL)))"
+    },
+    {
+      "name": "bookings_check1",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "bookings",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "status",
+        "cancelled_at"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK (((status = 'cancelled'::text) = (cancelled_at IS NOT NULL)))"
+    },
+    {
+      "name": "bookings_created_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "bookings",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "created_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "name": "bookings_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "bookings",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL id"
+    },
+    {
+      "name": "bookings_pkey",
+      "kind": "p",
+      "schema": "public",
+      "table_name": "bookings",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "name": "bookings_session_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "bookings",
+      "referenced_schema": "public",
+      "referenced_table": "class_sessions",
+      "columns": [
+        "session_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (session_id) REFERENCES class_sessions(id)"
+    },
+    {
+      "name": "bookings_session_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "bookings",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "session_id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL session_id"
+    },
+    {
+      "name": "bookings_status_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "bookings",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "status"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((status = ANY (ARRAY['confirmed'::text, 'cancelled'::text])))"
+    },
+    {
+      "name": "bookings_status_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "bookings",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "status"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL status"
+    },
+    {
+      "name": "bookings_student_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "bookings",
+      "referenced_schema": "public",
+      "referenced_table": "profiles",
+      "columns": [
+        "student_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (student_id) REFERENCES profiles(id)"
+    },
+    {
+      "name": "bookings_student_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "bookings",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "student_id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL student_id"
+    },
+    {
+      "name": "bookings_teacher_feedback_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "bookings",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "teacher_feedback"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK (((teacher_feedback IS NULL) OR ((char_length(btrim(teacher_feedback)) >= 1) AND (char_length(btrim(teacher_feedback)) <= 2000))))"
+    },
+    {
+      "name": "bookings_updated_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "bookings",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "updated_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL updated_at"
+    },
+    {
+      "name": "branches_created_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "branches",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "created_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "name": "branches_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "branches",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL id"
+    },
+    {
+      "name": "branches_is_active_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "branches",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "is_active"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL is_active"
+    },
+    {
+      "name": "branches_name_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "branches",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "name"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((btrim(name) <> ''::text))"
+    },
+    {
+      "name": "branches_name_key",
+      "kind": "u",
+      "schema": "public",
+      "table_name": "branches",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "name"
+      ],
+      "referenced_columns": [],
+      "definition": "UNIQUE (name)"
+    },
+    {
+      "name": "branches_name_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "branches",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "name"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL name"
+    },
+    {
+      "name": "branches_pkey",
+      "kind": "p",
+      "schema": "public",
+      "table_name": "branches",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "name": "branches_updated_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "branches",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "updated_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL updated_at"
+    },
+    {
+      "name": "class_sessions_booking_opens_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "booking_opens_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL booking_opens_at"
+    },
+    {
+      "name": "class_sessions_capacity_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "capacity"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((capacity > 0))"
+    },
+    {
+      "name": "class_sessions_capacity_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "capacity"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL capacity"
+    },
+    {
+      "name": "class_sessions_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "ends_at",
+        "starts_at"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((ends_at > starts_at))"
+    },
+    {
+      "name": "class_sessions_check1",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "booking_opens_at",
+        "booking_closes_at",
+        "starts_at"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((booking_opens_at <= COALESCE(booking_closes_at, starts_at)))"
+    },
+    {
+      "name": "class_sessions_check2",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "booking_closes_at",
+        "starts_at"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK (((booking_closes_at IS NULL) OR (booking_closes_at <= starts_at)))"
+    },
+    {
+      "name": "class_sessions_check3",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "cancellation_deadline_override_at",
+        "starts_at"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK (((cancellation_deadline_override_at IS NULL) OR (cancellation_deadline_override_at <= starts_at)))"
+    },
+    {
+      "name": "class_sessions_course_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": "public",
+      "referenced_table": "courses",
+      "columns": [
+        "course_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (course_id) REFERENCES courses(id)"
+    },
+    {
+      "name": "class_sessions_course_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "course_id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL course_id"
+    },
+    {
+      "name": "class_sessions_created_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "created_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "name": "class_sessions_ends_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "ends_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL ends_at"
+    },
+    {
+      "name": "class_sessions_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL id"
+    },
+    {
+      "name": "class_sessions_pkey",
+      "kind": "p",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "name": "class_sessions_room_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": "public",
+      "referenced_table": "rooms",
+      "columns": [
+        "room_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (room_id) REFERENCES rooms(id)"
+    },
+    {
+      "name": "class_sessions_room_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "room_id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL room_id"
+    },
+    {
+      "name": "class_sessions_room_id_tstzrange_excl",
+      "kind": "x",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "room_id"
+      ],
+      "referenced_columns": [],
+      "definition": "EXCLUDE USING gist (room_id WITH =, tstzrange(starts_at, ends_at, '[)'::text) WITH &&) WHERE ((status <> 'cancelled'::text))"
+    },
+    {
+      "name": "class_sessions_starts_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "starts_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL starts_at"
+    },
+    {
+      "name": "class_sessions_status_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "status"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((status = ANY (ARRAY['scheduled'::text, 'cancelled'::text, 'completed'::text])))"
+    },
+    {
+      "name": "class_sessions_status_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "status"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL status"
+    },
+    {
+      "name": "class_sessions_teacher_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": "public",
+      "referenced_table": "teachers",
+      "columns": [
+        "teacher_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (teacher_id) REFERENCES teachers(id)"
+    },
+    {
+      "name": "class_sessions_teacher_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "teacher_id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL teacher_id"
+    },
+    {
+      "name": "class_sessions_teacher_id_tstzrange_excl",
+      "kind": "x",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "teacher_id"
+      ],
+      "referenced_columns": [],
+      "definition": "EXCLUDE USING gist (teacher_id WITH =, tstzrange(starts_at, ends_at, '[)'::text) WITH &&) WHERE ((status <> 'cancelled'::text))"
+    },
+    {
+      "name": "class_sessions_updated_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "updated_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL updated_at"
+    },
+    {
+      "name": "course_categories_created_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "course_categories",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "created_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "name": "course_categories_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "course_categories",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL id"
+    },
+    {
+      "name": "course_categories_is_active_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "course_categories",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "is_active"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL is_active"
+    },
+    {
+      "name": "course_categories_name_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "course_categories",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "name"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((btrim(name) <> ''::text))"
+    },
+    {
+      "name": "course_categories_name_key",
+      "kind": "u",
+      "schema": "public",
+      "table_name": "course_categories",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "name"
+      ],
+      "referenced_columns": [],
+      "definition": "UNIQUE (name)"
+    },
+    {
+      "name": "course_categories_name_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "course_categories",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "name"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL name"
+    },
+    {
+      "name": "course_categories_pkey",
+      "kind": "p",
+      "schema": "public",
+      "table_name": "course_categories",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "name": "course_categories_sort_order_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "course_categories",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "sort_order"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL sort_order"
+    },
+    {
+      "name": "course_categories_updated_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "course_categories",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "updated_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL updated_at"
+    },
+    {
+      "name": "course_favorites_course_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "course_favorites",
+      "referenced_schema": "public",
+      "referenced_table": "courses",
+      "columns": [
+        "course_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (course_id) REFERENCES courses(id)"
+    },
+    {
+      "name": "course_favorites_course_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "course_favorites",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "course_id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL course_id"
+    },
+    {
+      "name": "course_favorites_created_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "course_favorites",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "created_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "name": "course_favorites_pkey",
+      "kind": "p",
+      "schema": "public",
+      "table_name": "course_favorites",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "student_id",
+        "course_id"
+      ],
+      "referenced_columns": [],
+      "definition": "PRIMARY KEY (student_id, course_id)"
+    },
+    {
+      "name": "course_favorites_student_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "course_favorites",
+      "referenced_schema": "public",
+      "referenced_table": "profiles",
+      "columns": [
+        "student_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (student_id) REFERENCES profiles(id)"
+    },
+    {
+      "name": "course_favorites_student_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "course_favorites",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "student_id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL student_id"
+    },
+    {
+      "name": "course_packages_created_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "course_packages",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "created_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "name": "course_packages_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "course_packages",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL id"
+    },
+    {
+      "name": "course_packages_is_active_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "course_packages",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "is_active"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL is_active"
+    },
+    {
+      "name": "course_packages_name_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "course_packages",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "name"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((btrim(name) <> ''::text))"
+    },
+    {
+      "name": "course_packages_name_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "course_packages",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "name"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL name"
+    },
+    {
+      "name": "course_packages_pkey",
+      "kind": "p",
+      "schema": "public",
+      "table_name": "course_packages",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "name": "course_packages_total_credits_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "course_packages",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "total_credits"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((total_credits > 0))"
+    },
+    {
+      "name": "course_packages_total_credits_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "course_packages",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "total_credits"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL total_credits"
+    },
+    {
+      "name": "course_packages_updated_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "course_packages",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "updated_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL updated_at"
+    },
+    {
+      "name": "course_packages_validity_days_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "course_packages",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "validity_days"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((validity_days > 0))"
+    },
+    {
+      "name": "course_packages_validity_days_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "course_packages",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "validity_days"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL validity_days"
+    },
+    {
+      "name": "courses_category_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "courses",
+      "referenced_schema": "public",
+      "referenced_table": "course_categories",
+      "columns": [
+        "category_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (category_id) REFERENCES course_categories(id)"
+    },
+    {
+      "name": "courses_category_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "courses",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "category_id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL category_id"
+    },
+    {
+      "name": "courses_created_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "courses",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "created_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "name": "courses_credit_cost_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "courses",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "credit_cost"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((credit_cost > 0))"
+    },
+    {
+      "name": "courses_credit_cost_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "courses",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "credit_cost"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL credit_cost"
+    },
+    {
+      "name": "courses_default_duration_minutes_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "courses",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "default_duration_minutes"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((default_duration_minutes > 0))"
+    },
+    {
+      "name": "courses_default_duration_minutes_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "courses",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "default_duration_minutes"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL default_duration_minutes"
+    },
+    {
+      "name": "courses_difficulty_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "courses",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "difficulty"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((btrim(difficulty) <> ''::text))"
+    },
+    {
+      "name": "courses_difficulty_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "courses",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "difficulty"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL difficulty"
+    },
+    {
+      "name": "courses_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "courses",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL id"
+    },
+    {
+      "name": "courses_is_active_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "courses",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "is_active"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL is_active"
+    },
+    {
+      "name": "courses_name_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "courses",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "name"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((btrim(name) <> ''::text))"
+    },
+    {
+      "name": "courses_name_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "courses",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "name"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL name"
+    },
+    {
+      "name": "courses_pkey",
+      "kind": "p",
+      "schema": "public",
+      "table_name": "courses",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "name": "courses_updated_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "courses",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "updated_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL updated_at"
+    },
+    {
+      "name": "credit_ledger_booking_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "credit_ledger",
+      "referenced_schema": "public",
+      "referenced_table": "bookings",
+      "columns": [
+        "booking_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (booking_id) REFERENCES bookings(id)"
+    },
+    {
+      "name": "credit_ledger_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "credit_ledger",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "entry_type",
+        "delta",
+        "booking_id",
+        "note"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((((entry_type = 'GRANT'::text) AND (delta > 0) AND (booking_id IS NULL)) OR ((entry_type = 'BOOKING_DEBIT'::text) AND (delta < 0) AND (booking_id IS NOT NULL)) OR ((entry_type = 'CANCELLATION_REFUND'::text) AND (delta > 0) AND (booking_id IS NOT NULL)) OR ((entry_type = 'MANUAL_ADJUSTMENT'::text) AND (booking_id IS NULL) AND (note IS NOT NULL) AND (btrim(note) <> ''::text))))"
+    },
+    {
+      "name": "credit_ledger_created_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "credit_ledger",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "created_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "name": "credit_ledger_delta_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "credit_ledger",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "delta"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((delta <> 0))"
+    },
+    {
+      "name": "credit_ledger_delta_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "credit_ledger",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "delta"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL delta"
+    },
+    {
+      "name": "credit_ledger_entry_type_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "credit_ledger",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "entry_type"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((entry_type = ANY (ARRAY['GRANT'::text, 'BOOKING_DEBIT'::text, 'CANCELLATION_REFUND'::text, 'MANUAL_ADJUSTMENT'::text])))"
+    },
+    {
+      "name": "credit_ledger_entry_type_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "credit_ledger",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "entry_type"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL entry_type"
+    },
+    {
+      "name": "credit_ledger_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "credit_ledger",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL id"
+    },
+    {
+      "name": "credit_ledger_idempotency_key_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "credit_ledger",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "idempotency_key"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((btrim(idempotency_key) <> ''::text))"
+    },
+    {
+      "name": "credit_ledger_idempotency_key_key",
+      "kind": "u",
+      "schema": "public",
+      "table_name": "credit_ledger",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "idempotency_key"
+      ],
+      "referenced_columns": [],
+      "definition": "UNIQUE (idempotency_key)"
+    },
+    {
+      "name": "credit_ledger_idempotency_key_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "credit_ledger",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "idempotency_key"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL idempotency_key"
+    },
+    {
+      "name": "credit_ledger_operator_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "credit_ledger",
+      "referenced_schema": "public",
+      "referenced_table": "profiles",
+      "columns": [
+        "operator_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (operator_id) REFERENCES profiles(id)"
+    },
+    {
+      "name": "credit_ledger_pkey",
+      "kind": "p",
+      "schema": "public",
+      "table_name": "credit_ledger",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "name": "credit_ledger_student_package_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "credit_ledger",
+      "referenced_schema": "public",
+      "referenced_table": "student_packages",
+      "columns": [
+        "student_package_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (student_package_id) REFERENCES student_packages(id)"
+    },
+    {
+      "name": "credit_ledger_student_package_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "credit_ledger",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "student_package_id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL student_package_id"
+    },
+    {
+      "name": "homepage_sections_is_active_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "homepage_sections",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "is_active"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL is_active"
+    },
+    {
+      "name": "homepage_sections_pkey",
+      "kind": "p",
+      "schema": "public",
+      "table_name": "homepage_sections",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "section_type"
+      ],
+      "referenced_columns": [],
+      "definition": "PRIMARY KEY (section_type)"
+    },
+    {
+      "name": "homepage_sections_section_type_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "homepage_sections",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "section_type"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((section_type = ANY (ARRAY['hero'::text, 'courses'::text, 'quick_booking'::text, 'teachers'::text, 'announcements'::text])))"
+    },
+    {
+      "name": "homepage_sections_section_type_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "homepage_sections",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "section_type"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL section_type"
+    },
+    {
+      "name": "homepage_sections_sort_order_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "homepage_sections",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "sort_order"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL sort_order"
+    },
+    {
+      "name": "homepage_sections_updated_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "homepage_sections",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "updated_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL updated_at"
+    },
+    {
+      "name": "knowledge_articles_body_area_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "knowledge_articles",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "body_area"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((btrim(body_area) <> ''::text))"
+    },
+    {
+      "name": "knowledge_articles_body_area_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "knowledge_articles",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "body_area"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL body_area"
+    },
+    {
+      "name": "knowledge_articles_created_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "knowledge_articles",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "created_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "name": "knowledge_articles_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "knowledge_articles",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL id"
+    },
+    {
+      "name": "knowledge_articles_image_url_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "knowledge_articles",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "image_url"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((btrim(image_url) <> ''::text))"
+    },
+    {
+      "name": "knowledge_articles_image_url_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "knowledge_articles",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "image_url"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL image_url"
+    },
+    {
+      "name": "knowledge_articles_is_active_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "knowledge_articles",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "is_active"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL is_active"
+    },
+    {
+      "name": "knowledge_articles_pkey",
+      "kind": "p",
+      "schema": "public",
+      "table_name": "knowledge_articles",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "name": "knowledge_articles_sort_order_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "knowledge_articles",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "sort_order"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL sort_order"
+    },
+    {
+      "name": "knowledge_articles_summary_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "knowledge_articles",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "summary"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((btrim(summary) <> ''::text))"
+    },
+    {
+      "name": "knowledge_articles_summary_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "knowledge_articles",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "summary"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL summary"
+    },
+    {
+      "name": "knowledge_articles_title_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "knowledge_articles",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "title"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((btrim(title) <> ''::text))"
+    },
+    {
+      "name": "knowledge_articles_title_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "knowledge_articles",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "title"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL title"
+    },
+    {
+      "name": "knowledge_articles_updated_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "knowledge_articles",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "updated_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL updated_at"
+    },
+    {
+      "name": "profiles_created_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "profiles",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "created_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "name": "profiles_display_name_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "profiles",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "display_name"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK (((display_name IS NULL) OR (btrim(display_name) <> ''::text)))"
+    },
+    {
+      "name": "profiles_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "profiles",
+      "referenced_schema": "auth",
+      "referenced_table": "users",
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (id) REFERENCES auth.users(id) ON DELETE RESTRICT"
+    },
+    {
+      "name": "profiles_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "profiles",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL id"
+    },
+    {
+      "name": "profiles_is_active_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "profiles",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "is_active"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL is_active"
+    },
+    {
+      "name": "profiles_is_admin_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "profiles",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "is_admin"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL is_admin"
+    },
+    {
+      "name": "profiles_pkey",
+      "kind": "p",
+      "schema": "public",
+      "table_name": "profiles",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "name": "profiles_updated_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "profiles",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "updated_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL updated_at"
+    },
+    {
+      "name": "rooms_branch_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "rooms",
+      "referenced_schema": "public",
+      "referenced_table": "branches",
+      "columns": [
+        "branch_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (branch_id) REFERENCES branches(id)"
+    },
+    {
+      "name": "rooms_branch_id_name_key",
+      "kind": "u",
+      "schema": "public",
+      "table_name": "rooms",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "branch_id",
+        "name"
+      ],
+      "referenced_columns": [],
+      "definition": "UNIQUE (branch_id, name)"
+    },
+    {
+      "name": "rooms_branch_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "rooms",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "branch_id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL branch_id"
+    },
+    {
+      "name": "rooms_capacity_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "rooms",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "capacity"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((capacity > 0))"
+    },
+    {
+      "name": "rooms_capacity_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "rooms",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "capacity"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL capacity"
+    },
+    {
+      "name": "rooms_created_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "rooms",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "created_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "name": "rooms_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "rooms",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL id"
+    },
+    {
+      "name": "rooms_is_active_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "rooms",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "is_active"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL is_active"
+    },
+    {
+      "name": "rooms_name_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "rooms",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "name"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((btrim(name) <> ''::text))"
+    },
+    {
+      "name": "rooms_name_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "rooms",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "name"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL name"
+    },
+    {
+      "name": "rooms_pkey",
+      "kind": "p",
+      "schema": "public",
+      "table_name": "rooms",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "name": "rooms_updated_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "rooms",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "updated_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL updated_at"
+    },
+    {
+      "name": "site_settings_brand_name_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "site_settings",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "brand_name"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((btrim(brand_name) <> ''::text))"
+    },
+    {
+      "name": "site_settings_brand_name_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "site_settings",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "brand_name"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL brand_name"
+    },
+    {
+      "name": "site_settings_cancellation_hours_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "site_settings",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "cancellation_hours"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((cancellation_hours >= 0))"
+    },
+    {
+      "name": "site_settings_cancellation_hours_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "site_settings",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "cancellation_hours"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL cancellation_hours"
+    },
+    {
+      "name": "site_settings_id_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "site_settings",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((id = 1))"
+    },
+    {
+      "name": "site_settings_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "site_settings",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL id"
+    },
+    {
+      "name": "site_settings_pkey",
+      "kind": "p",
+      "schema": "public",
+      "table_name": "site_settings",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "name": "site_settings_updated_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "site_settings",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "updated_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL updated_at"
+    },
+    {
+      "name": "student_packages_check",
+      "kind": "c",
+      "schema": "public",
+      "table_name": "student_packages",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "expires_at",
+        "starts_at"
+      ],
+      "referenced_columns": [],
+      "definition": "CHECK ((expires_at > starts_at))"
+    },
+    {
+      "name": "student_packages_created_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "student_packages",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "created_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "name": "student_packages_expires_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "student_packages",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "expires_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL expires_at"
+    },
+    {
+      "name": "student_packages_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "student_packages",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL id"
+    },
+    {
+      "name": "student_packages_is_active_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "student_packages",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "is_active"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL is_active"
+    },
+    {
+      "name": "student_packages_package_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "student_packages",
+      "referenced_schema": "public",
+      "referenced_table": "course_packages",
+      "columns": [
+        "package_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (package_id) REFERENCES course_packages(id)"
+    },
+    {
+      "name": "student_packages_package_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "student_packages",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "package_id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL package_id"
+    },
+    {
+      "name": "student_packages_pkey",
+      "kind": "p",
+      "schema": "public",
+      "table_name": "student_packages",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "name": "student_packages_starts_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "student_packages",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "starts_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL starts_at"
+    },
+    {
+      "name": "student_packages_student_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "student_packages",
+      "referenced_schema": "public",
+      "referenced_table": "profiles",
+      "columns": [
+        "student_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (student_id) REFERENCES profiles(id)"
+    },
+    {
+      "name": "student_packages_student_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "student_packages",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "student_id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL student_id"
+    },
+    {
+      "name": "teachers_created_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "teachers",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "created_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "name": "teachers_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "teachers",
+      "referenced_schema": "public",
+      "referenced_table": "profiles",
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (id) REFERENCES profiles(id)"
+    },
+    {
+      "name": "teachers_id_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "teachers",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL id"
+    },
+    {
+      "name": "teachers_is_active_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "teachers",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "is_active"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL is_active"
+    },
+    {
+      "name": "teachers_pkey",
+      "kind": "p",
+      "schema": "public",
+      "table_name": "teachers",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [],
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "name": "teachers_updated_at_not_null",
+      "kind": "n",
+      "schema": "public",
+      "table_name": "teachers",
+      "referenced_schema": null,
+      "referenced_table": null,
+      "columns": [
+        "updated_at"
+      ],
+      "referenced_columns": [],
+      "definition": "NOT NULL updated_at"
+    }
+  ],
+  "foreign_keys": [
+    {
+      "name": "bookings_attendance_marked_by_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "bookings",
+      "referenced_schema": "public",
+      "referenced_table": "profiles",
+      "columns": [
+        "attendance_marked_by"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (attendance_marked_by) REFERENCES profiles(id)",
+      "parent_per_child": "0..1",
+      "children_per_parent": "0..N"
+    },
+    {
+      "name": "bookings_session_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "bookings",
+      "referenced_schema": "public",
+      "referenced_table": "class_sessions",
+      "columns": [
+        "session_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (session_id) REFERENCES class_sessions(id)",
+      "parent_per_child": "1",
+      "children_per_parent": "0..N"
+    },
+    {
+      "name": "bookings_student_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "bookings",
+      "referenced_schema": "public",
+      "referenced_table": "profiles",
+      "columns": [
+        "student_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (student_id) REFERENCES profiles(id)",
+      "parent_per_child": "1",
+      "children_per_parent": "0..N"
+    },
+    {
+      "name": "class_sessions_course_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": "public",
+      "referenced_table": "courses",
+      "columns": [
+        "course_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (course_id) REFERENCES courses(id)",
+      "parent_per_child": "1",
+      "children_per_parent": "0..N"
+    },
+    {
+      "name": "class_sessions_room_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": "public",
+      "referenced_table": "rooms",
+      "columns": [
+        "room_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (room_id) REFERENCES rooms(id)",
+      "parent_per_child": "1",
+      "children_per_parent": "0..N"
+    },
+    {
+      "name": "class_sessions_teacher_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "class_sessions",
+      "referenced_schema": "public",
+      "referenced_table": "teachers",
+      "columns": [
+        "teacher_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (teacher_id) REFERENCES teachers(id)",
+      "parent_per_child": "1",
+      "children_per_parent": "0..N"
+    },
+    {
+      "name": "course_favorites_course_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "course_favorites",
+      "referenced_schema": "public",
+      "referenced_table": "courses",
+      "columns": [
+        "course_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (course_id) REFERENCES courses(id)",
+      "parent_per_child": "1",
+      "children_per_parent": "0..N"
+    },
+    {
+      "name": "course_favorites_student_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "course_favorites",
+      "referenced_schema": "public",
+      "referenced_table": "profiles",
+      "columns": [
+        "student_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (student_id) REFERENCES profiles(id)",
+      "parent_per_child": "1",
+      "children_per_parent": "0..N"
+    },
+    {
+      "name": "courses_category_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "courses",
+      "referenced_schema": "public",
+      "referenced_table": "course_categories",
+      "columns": [
+        "category_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (category_id) REFERENCES course_categories(id)",
+      "parent_per_child": "1",
+      "children_per_parent": "0..N"
+    },
+    {
+      "name": "credit_ledger_booking_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "credit_ledger",
+      "referenced_schema": "public",
+      "referenced_table": "bookings",
+      "columns": [
+        "booking_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (booking_id) REFERENCES bookings(id)",
+      "parent_per_child": "0..1",
+      "children_per_parent": "0..N"
+    },
+    {
+      "name": "credit_ledger_operator_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "credit_ledger",
+      "referenced_schema": "public",
+      "referenced_table": "profiles",
+      "columns": [
+        "operator_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (operator_id) REFERENCES profiles(id)",
+      "parent_per_child": "0..1",
+      "children_per_parent": "0..N"
+    },
+    {
+      "name": "credit_ledger_student_package_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "credit_ledger",
+      "referenced_schema": "public",
+      "referenced_table": "student_packages",
+      "columns": [
+        "student_package_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (student_package_id) REFERENCES student_packages(id)",
+      "parent_per_child": "1",
+      "children_per_parent": "0..N"
+    },
+    {
+      "name": "profiles_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "profiles",
+      "referenced_schema": "auth",
+      "referenced_table": "users",
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (id) REFERENCES auth.users(id) ON DELETE RESTRICT",
+      "parent_per_child": "1",
+      "children_per_parent": "0..1"
+    },
+    {
+      "name": "rooms_branch_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "rooms",
+      "referenced_schema": "public",
+      "referenced_table": "branches",
+      "columns": [
+        "branch_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (branch_id) REFERENCES branches(id)",
+      "parent_per_child": "1",
+      "children_per_parent": "0..N"
+    },
+    {
+      "name": "student_packages_package_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "student_packages",
+      "referenced_schema": "public",
+      "referenced_table": "course_packages",
+      "columns": [
+        "package_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (package_id) REFERENCES course_packages(id)",
+      "parent_per_child": "1",
+      "children_per_parent": "0..N"
+    },
+    {
+      "name": "student_packages_student_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "student_packages",
+      "referenced_schema": "public",
+      "referenced_table": "profiles",
+      "columns": [
+        "student_id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (student_id) REFERENCES profiles(id)",
+      "parent_per_child": "1",
+      "children_per_parent": "0..N"
+    },
+    {
+      "name": "teachers_id_fkey",
+      "kind": "f",
+      "schema": "public",
+      "table_name": "teachers",
+      "referenced_schema": "public",
+      "referenced_table": "profiles",
+      "columns": [
+        "id"
+      ],
+      "referenced_columns": [
+        "id"
+      ],
+      "definition": "FOREIGN KEY (id) REFERENCES profiles(id)",
+      "parent_per_child": "1",
+      "children_per_parent": "0..1"
+    }
+  ],
+  "sql_sources": [
+    {
+      "file": "01_Flowie_建立資料表.sql",
+      "sha256": "6479bf79219e38ed83667e7f2f3225ef5a637fd19a7550788db7e908ff9ff3fe",
+      "affects_schema": true
+    },
+    {
+      "file": "02_Flowie_新增示範資料.sql",
+      "sha256": "5f7d372d254034db1fed568cf5c63cff27dbb11f6e2e27d5341c0e3a1fbf10b1",
+      "affects_schema": false
+    },
+    {
+      "file": "03_Flowie_指定第一位管理員.sql",
+      "sha256": "5096be8752edd80ca9fc2c0b129761e67d92ac090da183bb26dff3a8f934834c",
+      "affects_schema": false
+    },
+    {
+      "file": "04_Flowie_建立示範老師與場次.sql",
+      "sha256": "aa3fe2a2f5a178cf619fa2fe72cd821d19f53bd3c3eac2354a402c6491047996",
+      "affects_schema": false
+    },
+    {
+      "file": "05_flowie_v1_api_and_transactions.sql",
+      "sha256": "743c9b104400b3f9ebb25944db77532b1f81cf52bd026ddd4a7e6054f16f314d",
+      "affects_schema": true
+    },
+    {
+      "file": "06_flowie_v1_report_session_count.sql",
+      "sha256": "88e53b51c2dccec1d203d8d924f346fe5dcb28be204cd82443a1bcf5ed081b65",
+      "affects_schema": true
+    },
+    {
+      "file": "07_flowie_v1_knowledge_and_feedback.sql",
+      "sha256": "dc9a8a1ecc1d6889954343f127d9610f454f0343aaa40194c0b01660765deeac",
+      "affects_schema": true
+    }
+  ]
+}

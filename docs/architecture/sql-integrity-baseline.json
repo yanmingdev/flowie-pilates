@@ -1,0 +1,41 @@
+[
+  {
+    "old": "Flowie_V1_Supabase_SQL_和設定說明/01_Flowie_建立資料表.sql",
+    "path": "supabase/sql/01_Flowie_建立資料表.sql",
+    "sha256": "2bfac7640bc58b9f6d7dcbcdf98e05dac631ac65920736752667a84adc7a01e2"
+  },
+  {
+    "old": "Flowie_V1_Supabase_SQL_和設定說明/02_Flowie_新增示範資料.sql",
+    "path": "supabase/sql/02_Flowie_新增示範資料.sql",
+    "sha256": "a6e1d5aff84b9e4b41c51fb7689aa2b33513c7bbc02032ab94d0113f8356ca4e"
+  },
+  {
+    "old": "Flowie_V1_Supabase_SQL_和設定說明/03_Flowie_指定第一位管理員.sql",
+    "path": "supabase/sql/03_Flowie_指定第一位管理員.sql",
+    "sha256": "c9f2a0dfaea6c00f2a97d13fcae9107fc4a241369ef75036197d396fb51f6339",
+    "previous_sha256": "e8e9530624868fc4c09f5293fc4c6efdc88deb1cb7abe4deb0f950804d5e1d1a",
+    "change_reason": "Replace environment-specific Auth UID with explicit non-executable placeholder; no schema or transaction change."
+  },
+  {
+    "old": "Flowie_V1_Supabase_SQL_和設定說明/04_Flowie_建立示範老師與場次.sql",
+    "path": "supabase/sql/04_Flowie_建立示範老師與場次.sql",
+    "sha256": "6d3d7169a9418c2417d2edc154d7c83af9a43fc6573c375568fb9d7594f7c6c7",
+    "previous_sha256": "b0a65602df0979f4158850173c8c4a44f28da33eaa1ebf070ea1e32a182532e0",
+    "change_reason": "Replace environment-specific Auth UID with explicit non-executable placeholder; no schema or transaction change."
+  },
+  {
+    "old": "supabase/sql/05_flowie_v1_api_and_transactions.sql",
+    "path": "supabase/sql/05_flowie_v1_api_and_transactions.sql",
+    "sha256": "b9db0aeba05db808ecf0e14a2c8271c88dd04e5a6ca96dbe46f24b1acf53574a"
+  },
+  {
+    "old": "supabase/sql/06_flowie_v1_report_session_count.sql",
+    "path": "supabase/sql/06_flowie_v1_report_session_count.sql",
+    "sha256": "95882f732183a1181d0f0f6cc68feb8a4edc62f6b072f7b1f487286033d6d2f0"
+  },
+  {
+    "old": "supabase/sql/07_flowie_v1_knowledge_and_feedback.sql",
+    "path": "supabase/sql/07_flowie_v1_knowledge_and_feedback.sql",
+    "sha256": "da259d8e860a12718a74241bfbe0568e503facec094b75453c293d59fba00538"
+  }
+]

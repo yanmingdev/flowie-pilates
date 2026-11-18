@@ -1,0 +1,240 @@
+/* Student interface based on the supplied Flowie brand reference. */
+.hero {
+  background-color: #efe5dc;
+  color: var(--text);
+  background-position: center top;
+}
+.hero-content {
+  max-width: 540px;
+}
+.hero h1 {
+  font-family: 'Noto Sans TC', serif;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.hero p {
+  color: #514a45;
+  opacity: 1;
+  max-width: 260px;
+}
+.home-page .content-section {
+  padding-top: 38px;
+}
+.home-page .section-heading h2 {
+  font-size: 22px;
+}
+.home-page .section-heading .eyebrow,
+.home-page .section-heading p {
+  display: none;
+}
+.home-shortcuts {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+  padding-top: 32px;
+}
+.home-shortcuts a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 76px;
+  border-radius: 18px;
+  background: #f0e9e2;
+  color: #5b6953;
+}
+.home-shortcuts a span {
+  display: grid;
+  place-items: center;
+}
+.home-shortcuts a small {
+  color: var(--text);
+  font-weight: 600;
+}
+.top-notice {
+  display: grid;
+  place-items: center;
+  min-width: 40px;
+  min-height: 40px;
+  color: #5c6f56;
+}
+.class-art.has-image:after,
+.class-art.has-image .art-label,
+.class-art.has-image .art-flower,
+.class-art.has-image .art-number {
+  display: none;
+}
+.class-footer {
+  gap: 8px;
+}
+.round-link {
+  width: auto;
+  min-width: 70px;
+  padding: 0 12px;
+  display: inline-flex;
+  gap: 4px;
+  font-size: 12px;
+}
+.favorite-control {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.favorite-control small {
+  color: var(--error);
+  font-size: 10px;
+}
+.favorite-button {
+  border: 0;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  color: #84776f;
+  flex: none;
+}
+.favorite-button.active {
+  color: #a56b6b;
+  background: #f8ece9;
+}
+.favorite-row {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+  padding: 16px;
+  border-radius: 18px;
+  background: white;
+  box-shadow: var(--shadow);
+}
+.favorite-row img {
+  width: 112px;
+  height: 112px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+.favorite-row h3 {
+  margin-bottom: 6px;
+}
+.favorite-row p {
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+.detail-image {
+  display: block;
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin: 12px 0;
+}
+@media (max-width: 700px) {
+  .home-page {
+    padding-top: 0;
+  }
+  .home-page .hero {
+    border-radius: 0 0 16px 16px;
+    margin: 0 -16px;
+    min-height: 292px;
+    background-position: 62% center;
+  }
+  .hero-content {
+    padding: 30px 22px;
+    max-width: 62%;
+  }
+  .hero h1 {
+    font-size: 26px;
+    max-width: 5.5em;
+    line-height: 1.4;
+    margin: 10px 0 12px;
+  }
+  .hero p {
+    font-size: 12px;
+    margin-bottom: 20px;
+  }
+  .hero .button {
+    min-height: 40px;
+    font-size: 12px;
+    padding: 9px 14px;
+  }
+  .home-shortcuts {
+    gap: 6px;
+    padding-top: 24px;
+  }
+  .home-shortcuts a {
+    min-height: 78px;
+    flex-direction: column;
+    gap: 6px;
+    border-radius: 14px;
+  }
+  .home-shortcuts a small {
+    font-size: 10px;
+    white-space: nowrap;
+  }
+  .home-page .content-section {
+    padding-top: 28px;
+  }
+  .home-page .section-heading h2 {
+    font-size: 19px;
+  }
+  .home-page .class-card {
+    grid-template-columns: 90px minmax(0, 1fr);
+    min-height: 125px;
+  }
+  .home-page .class-art {
+    min-height: 125px;
+  }
+  .home-page .class-body {
+    padding: 12px;
+  }
+  .home-page .class-body h3 {
+    font-size: 14px;
+    margin: 6px 0;
+  }
+  .home-page .class-meta {
+    font-size: 10px;
+    gap: 3px 8px;
+  }
+  .home-page .class-date {
+    font-size: 10px;
+  }
+  .home-page .class-footer {
+    margin-top: 5px;
+    padding-top: 5px;
+  }
+  .home-page .availability,
+  .home-page .unavailable {
+    font-size: 10px;
+  }
+  .home-page .favorite-button {
+    width: 32px;
+    height: 32px;
+  }
+  .home-page .round-link {
+    min-height: 32px;
+    min-width: 58px;
+    padding: 0 8px;
+  }
+  .top-user {
+    display: none;
+  }
+  .bottom-nav a.active {
+    background: #edf1e9;
+    border-radius: 12px;
+  }
+  .bottom-nav a {
+    min-height: 46px;
+    padding: 4px 8px;
+  }
+  .favorite-row {
+    grid-template-columns: 76px minmax(0, 1fr) auto;
+    padding: 12px;
+    gap: 10px;
+  }
+  .favorite-row img {
+    width: 76px;
+    height: 76px;
+  }
+}

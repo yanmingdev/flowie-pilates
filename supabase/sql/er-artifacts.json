@@ -1,0 +1,9 @@
+{
+  "public_tables": 16,
+  "application_columns": 126,
+  "foreign_keys": 17,
+  "renderer": "Graphviz dot",
+  "png_sha256": "919630a9a74430d64e647416212777246ba39a6831bd5ce30fd14ac6fc28deae",
+  "dot_sha256": "cf95d0719b2c01cc241591783f0d6e8c7a561b7430896cded9319bea05d9838a",
+  "catalog_sha256": "8a2caf73c1ad9c3c986751de8491fcda39270766a819a56a2b6af7b91002a17e"
+}

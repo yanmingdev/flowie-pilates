@@ -1,0 +1,9 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> flowie-studio@1.2.0 test:concurrency
+> node tests/database/v1-concurrency.mjs
+
+PASS concurrent seat: 4 simultaneous requests, exactly 1 confirmed
+PASS concurrent retry: same request returned the same booking without extra debit
+PASS concurrent credits: 2 simultaneous requests for 1 credit, 1 success
+LIMITATION local PostgreSQL with simulated Auth; not a hosted Supabase integration test.

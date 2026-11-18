@@ -1,0 +1,75 @@
+{
+  "simple": {
+    "frontend/src/main.tsx": "frontend/src/app/bootstrap.tsx",
+    "frontend/src/routes.tsx": "frontend/src/app/router/AppRoutes.tsx",
+    "frontend/src/services/api.ts": "frontend/src/shared/api/http-client.ts",
+    "frontend/src/services/supabase.ts": "frontend/src/shared/auth/supabase-client.ts",
+    "frontend/src/services/favorites.ts": "frontend/src/features/favorites/hooks/useFavorites.ts",
+    "frontend/src/components/FavoriteButton.tsx": "frontend/src/features/favorites/components/FavoriteButton.tsx",
+    "frontend/src/components/ui/button.tsx": "frontend/src/shared/ui/primitives/Button.tsx",
+    "frontend/src/components/ui/dialog.tsx": "frontend/src/shared/ui/primitives/Dialog.tsx",
+    "frontend/src/lib/utils.ts": "frontend/src/shared/utils/class-names.ts",
+    "frontend/src/pages/manage-config.ts": "frontend/src/features/admin-management/config/resource-fields.ts",
+    "frontend/src/pages/Home.tsx": "frontend/src/features/home/pages/Home.tsx",
+    "frontend/src/pages/Classes.tsx": "frontend/src/features/classes/pages/Classes.tsx",
+    "frontend/src/pages/Favorites.tsx": "frontend/src/features/favorites/pages/Favorites.tsx",
+    "frontend/src/pages/History.tsx": "frontend/src/features/history/pages/History.tsx",
+    "frontend/src/pages/Announcements.tsx": "frontend/src/features/announcements/pages/Announcements.tsx",
+    "frontend/src/pages/Teachers.tsx": "frontend/src/features/teachers/pages/Teachers.tsx",
+    "frontend/src/pages/MyCalendar.tsx": "frontend/src/features/member-calendar/pages/MyCalendar.tsx",
+    "frontend/src/pages/TeachingRecords.tsx": "frontend/src/features/teaching/pages/TeachingRecords.tsx",
+    "frontend/src/pages/AdminHome.tsx": "frontend/src/features/admin-dashboard/pages/AdminHome.tsx",
+    "frontend/tests/home.test.tsx": "tests/frontend/home.test.tsx",
+    "frontend/tests/routes.test.tsx": "tests/frontend/routes.test.tsx"
+  },
+  "split": {
+    "frontend/src/pages/Account.tsx": {
+      "SignInPrompt": "frontend/src/features/auth/components/SignInPrompt.tsx",
+      "Bookings": "frontend/src/features/bookings/pages/Bookings.tsx",
+      "Credits": "frontend/src/features/credits/pages/Credits.tsx",
+      "Account": "frontend/src/features/account/pages/Account.tsx"
+    },
+    "frontend/src/pages/Auth.tsx": {
+      "AuthPage": "frontend/src/features/auth/pages/AuthPage.tsx",
+      "ResetPassword": "frontend/src/features/auth/pages/ResetPassword.tsx"
+    },
+    "frontend/src/pages/Manage.tsx": {
+      "ManageForm": "frontend/src/features/admin-management/components/ManageForm.tsx",
+      "CreditAdjust": "frontend/src/features/admin-management/components/CreditAdjust.tsx",
+      "StudentHistory": "frontend/src/features/admin-management/components/StudentHistory.tsx",
+      "Students": "frontend/src/features/admin-management/components/Students.tsx",
+      "Manage": "frontend/src/features/admin-management/pages/Manage.tsx"
+    },
+    "frontend/src/pages/Calendar.tsx": {
+      "StudentFeedback": "frontend/src/features/scheduling/components/StudentFeedback.tsx",
+      "SessionForm": "frontend/src/features/scheduling/components/SessionForm.tsx",
+      "SessionDetails": "frontend/src/features/scheduling/components/SessionDetails.tsx",
+      "Calendar": "frontend/src/features/scheduling/pages/Calendar.tsx"
+    },
+    "frontend/src/components/Ui.tsx": {
+      "Empty": "frontend/src/shared/ui/Empty.tsx",
+      "ErrorNote": "frontend/src/shared/ui/ErrorNote.tsx",
+      "Modal": "frontend/src/shared/ui/Modal.tsx",
+      "Heading": "frontend/src/shared/ui/Heading.tsx",
+      "Loading": "frontend/src/shared/ui/Loading.tsx",
+      "ClassCard": "frontend/src/features/classes/components/ClassCard.tsx"
+    },
+    "frontend/src/components/Layout.tsx": {
+      "Layout": "frontend/src/app/layouts/MemberLayout.tsx",
+      "AdminLayout": "frontend/src/app/layouts/AdminLayout.tsx"
+    },
+    "frontend/src/services/types.ts": {
+      "Studio": "frontend/src/shared/types/models.ts",
+      "Session": "frontend/src/shared/types/models.ts",
+      "Me": "frontend/src/shared/types/models.ts",
+      "dateTime": "frontend/src/shared/utils/date-time.ts",
+      "shortTime": "frontend/src/shared/utils/date-time.ts",
+      "range": "frontend/src/shared/utils/date-time.ts"
+    },
+    "frontend/src/services/context.tsx": {
+      "AppProvider": "frontend/src/shared/state/AppContext.tsx",
+      "useApp": "frontend/src/shared/state/AppContext.tsx",
+      "useStudioQuery": "frontend/src/shared/hooks/useStudioQuery.ts"
+    }
+  }
+}

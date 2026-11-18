@@ -1,0 +1,67 @@
+.auth-page {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.auth-art {
+  background: #849a86;
+  color: white;
+  padding: 8vw;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.auth-art > span {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+}
+.auth-art h1 {
+  font-size: clamp(36px, 5vw, 64px);
+  line-height: 1.35;
+  margin: 20px 0;
+}
+.auth-art p {
+  font-size: 15px;
+}
+.auth-illustration {
+  position: absolute;
+  right: 12%;
+  top: 14%;
+  font-size: 220px;
+  color: rgba(255, 255, 255, 0.16);
+}
+.auth-form {
+  background: #fff;
+  padding: 60px clamp(30px, 8vw, 120px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.auth-logo {
+  width: 140px;
+  margin-bottom: 48px;
+}
+.auth-form h1 {
+  font-size: 32px;
+  margin: 10px 0;
+}
+.auth-form > p {
+  font-size: 13px;
+  color: #857e76;
+  margin-bottom: 30px;
+}
+.auth-links {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.auth-links button {
+  border: 0;
+  background: none;
+  color: #617c65;
+  font-size: 12px;
+}
